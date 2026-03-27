@@ -1,82 +1,3 @@
-# AI神器库 - GitHub Pages 部署脚本
-
-# 请先在终端执行以下命令登录GitHub：
-# gh auth login
-
-# 然后运行以下命令部署：
-
-cd "C:\Users\86139\ai-tool-deploy"
-
-# 创建GitHub仓库（仅首次需要）
-gh repo create ai-tool-lib --public --source=. --description "AI神器库 - 让每个普通人都能找到最适合自己的AI" --push
-
-# 开启GitHub Pages（仓库设置中手动开启）
-echo "请到 https://github.com/你的用户名/ai-tool-lib/settings/pages"
-echo "选择 Source: Deploy from a branch"
-echo "选择 Branch: main"
-echo "保存后等待1-2分钟即可访问"
-# AI神器库 - 上线教程
-
-## 文件已准备好
-
-你的网站文件在：`C:\Users\86139\ai-tool-deploy\index.html`
-
----
-
-## 手动部署步骤（5分钟）
-
-### 1. 打开GitHub创建仓库
-
-浏览器访问：https://github.com/new
-
-填写：
-- **Repository name**: `ai-tool-lib`
-- **Description**: `AI神器库 - 让每个普通人都能找到最适合自己的AI`
-- **Public**: ✅ 勾选
-- **Add a README file**: ❌ 不勾选
-- **Add .gitignore**: ❌ 不勾选
-
-点击 **Create repository**
-
-### 2. 推送代码
-
-在创建的仓库页面，向下滑动找到 "…or push an existing repository from the command line"
-
-点击 **"Choose a file to upload"**，然后：
-- 把 `C:\Users\86139\ai-tool-deploy\index.html` 文件拖进去
-- 填写 Commit message: "Initial commit: AI神器库"
-- 点击 **Commit changes**
-
-### 3. 开启GitHub Pages
-
-1. 点击仓库页面的 **Settings**
-2. 左边找到 **Pages**
-3. Build and deployment:
-   - Source: 选择 **"Deploy from a branch"**
-   - Branch: 选择 **"main"** (如果没有，点Save刷新)
-4. 等待1-2分钟，页面会显示链接，如：
-   - `https://wangye2022.github.io/ai-tool-lib/`
-
----
-
-## 访问测试
-
-用上面的链接打开，就是你的AI神器库网站！
-
----
-
-## 后续更新
-
-修改 `index.html` 后，在仓库页面：
-1. 点击 "Add file" → "Upload files"
-2. 上传新文件，覆盖旧的
-3. 填写 Commit message → Commit changes
-
-网站会自动更新（1-2分钟生效）
-
----
-
-**你现在就可以去GitHub操作了，有问题随时问我！**
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -102,7 +23,6 @@ echo "保存后等待1-2分钟即可访问"
             overflow-x: hidden;
         }
         
-        /* Background */
         .bg {
             position: fixed;
             inset: 0;
@@ -135,7 +55,6 @@ echo "保存后等待1-2分钟即可访问"
             background-size: 40px 40px;
         }
         
-        /* Left Tech */
         .tech-left {
             position: fixed;
             left: 0;
@@ -213,7 +132,6 @@ echo "保存后等待1-2分钟即可访问"
             50% { transform: translateY(-10px); opacity: 0.5; }
         }
         
-        /* Right Tech */
         .tech-right {
             position: fixed;
             right: 0;
@@ -273,33 +191,6 @@ echo "保存后等待1-2分钟即可访问"
             50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 20px var(--cyan); }
         }
         
-        .wave {
-            position: absolute;
-            bottom: 20%;
-            right: 10%;
-            width: 100px;
-            height: 40px;
-            opacity: 0.3;
-        }
-        
-        .wave svg {
-            width: 100%;
-            height: 100%;
-        }
-        
-        .wave path {
-            fill: none;
-            stroke: var(--cyan);
-            stroke-width: 1;
-            animation: waveDraw 3s ease-in-out infinite;
-        }
-        
-        @keyframes waveDraw {
-            0%, 100% { stroke-dashoffset: 0; }
-            50% { stroke-dashoffset: 20; }
-        }
-        
-        /* Main Container */
         .container {
             position: relative;
             z-index: 2;
@@ -381,6 +272,16 @@ echo "保存后等待1-2分钟即可访问"
             animation-duration: 6s;
         }
         
+        @keyframes corePulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+        
+        @keyframes ringRotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
         .logo-text {
             background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--green) 100%);
             -webkit-background-clip: text;
@@ -441,22 +342,40 @@ echo "保存后等待1-2分钟即可访问"
             box-shadow: 0 8px 30px rgba(0,240,255,0.4);
         }
         
+        .quick-section {
+            margin-bottom: 20px;
+        }
+        
+        .quick-section.hidden {
+            display: none;
+        }
+        
+        .cats-section {
+            margin-bottom: 20px;
+        }
+        
+        .cats-section.hidden {
+            display: none;
+        }
+        
         .quick-title {
             font-size: 0.9rem;
             color: rgba(255,255,255,0.35);
             margin-bottom: 16px;
+            text-align: center;
         }
         
         .quick-grid {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 14px;
             margin-bottom: 28px;
-            flex-wrap: wrap;
         }
         
         .quick-item {
-            display: inline-flex;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 16px 32px;
@@ -465,6 +384,7 @@ echo "保存后等待1-2分钟即可访问"
             border-radius: 14px;
             cursor: pointer;
             transition: all 0.2s;
+            min-width: 100px;
         }
         
         .quick-item:hover {
@@ -473,15 +393,23 @@ echo "保存后等待1-2分钟即可访问"
             transform: translateY(-3px);
         }
         
-        .quick-item span {
+        .quick-item .q-name {
             font-size: 1rem;
-            color: rgba(255,255,255,0.85);
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .quick-item .q-desc {
+            font-size: 0.7rem;
+            color: rgba(0,240,255,0.8);
+            margin-top: 4px;
         }
         
         .cats-title {
             font-size: 0.9rem;
             color: rgba(255,255,255,0.35);
             margin-bottom: 16px;
+            text-align: center;
         }
         
         .cats-grid {
@@ -515,12 +443,6 @@ echo "保存后等待1-2分钟即可访问"
             color: white;
         }
         
-        .cat-btn:hover {
-            background: rgba(0,240,255,0.12);
-            border-color: rgba(0,240,255,0.4);
-            color: white;
-        }
-        
         .cat-btn.active {
             background: linear-gradient(135deg, rgba(0,240,255,0.25), rgba(0,255,136,0.15));
             border-color: var(--cyan);
@@ -531,7 +453,7 @@ echo "保存后等待1-2分钟即可访问"
             display: none;
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         
         .results.show {
@@ -581,7 +503,7 @@ echo "保存后等待1-2分钟即可访问"
         
         .result-item:hover {
             background: rgba(0,240,255,0.06);
-            border-color: rgba(0,240,255,0.2);
+            border-color: rgba(0,240,255,0.15);
         }
         
         .result-info {
@@ -636,36 +558,19 @@ echo "保存后等待1-2分钟即可访问"
         @media (max-width: 768px) {
             .tech-left, .tech-right { display: none; }
             .container { padding: 20px 15px; }
-            .main-card { 
-                padding: 20px 15px; 
-                max-width: 100%; 
-            }
-            .logo { 
-                font-size: 2rem; 
-                gap: 8px;
-            }
+            .main-card { padding: 20px 15px; max-width: 100%; }
+            .logo { font-size: 2rem; gap: 8px; }
             .logo-icon { width: 36px; height: 36px; }
             .logo-icon .core { width: 18px; height: 18px; }
             .logo-icon .ring:nth-child(2) { width: 26px; height: 26px; margin: -13px 0 0 -13px; }
             .logo-icon .ring:nth-child(3) { width: 36px; height: 36px; margin: -18px 0 0 -18px; }
-            .search-box {
-                flex-direction: column;
-                gap: 10px;
-                max-width: 100%;
-            }
+            .search-box { flex-direction: column; gap: 10px; max-width: 100%; }
             .search-btn { width: 100%; }
-            .quick-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-            }
-            .quick-item { padding: 12px 8px; }
-            .quick-item span { font-size: 0.8rem; }
-            .cats-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-                max-width: 100%;
-            }
+            .quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .quick-item { padding: 12px 8px; min-width: auto; }
+            .quick-item .q-name { font-size: 0.8rem; }
+            .quick-item .q-desc { font-size: 0.6rem; }
+            .cats-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 100%; }
             .cat-btn { padding: 10px 6px; font-size: 0.75rem; }
             .result-item { flex-wrap: wrap; gap: 8px; }
             .result-link { width: 100%; text-align: center; }
@@ -712,11 +617,6 @@ echo "保存后等待1-2分钟即可访问"
         <div class="pulse-dot"></div>
         <div class="pulse-dot"></div>
         <div class="pulse-dot"></div>
-        <div class="wave">
-            <svg viewBox="0 0 100 40">
-                <path d="M0,20 Q25,0 50,20 T100,20" stroke-dasharray="5,5"/>
-            </svg>
-        </div>
     </div>
     
     <div class="container">
@@ -738,31 +638,37 @@ echo "保存后等待1-2分钟即可访问"
                 <button class="search-btn" onclick="matchAI()">搜索</button>
             </div>
             
-            <div id="quickSection">
+            <div id="quickSection" class="quick-section">
             <div class="quick-title">热门工具</div>
             <div class="quick-grid">
                 <div class="quick-item" onclick="quickSearch('ChatGPT')">
-                    <span>ChatGPT</span>
+                    <span class="q-name">ChatGPT</span>
+                    <span class="q-desc">Top AI Chat</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Midjourney')">
-                    <span>Midjourney</span>
+                    <span class="q-name">Midjourney</span>
+                    <span class="q-desc">Top AI Art</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Claude')">
-                    <span>Claude</span>
+                    <span class="q-name">Claude</span>
+                    <span class="q-desc">Long Text AI</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Kimi')">
-                    <span>Kimi</span>
+                    <span class="q-name">Kimi</span>
+                    <span class="q-desc">2M Context</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Cursor')">
-                    <span>Cursor</span>
+                    <span class="q-name">Cursor</span>
+                    <span class="q-desc">Code AI</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Gamma')">
-                    <span>Gamma</span>
+                    <span class="q-name">Gamma</span>
+                    <span class="q-desc">AI PPT</span>
                 </div>
             </div>
             </div>
             
-            <div id="catsSection">
+            <div id="catsSection" class="cats-section">
             <div class="cats-title">选择场景</div>
             <div class="cats-grid">
                 <button class="cat-btn" data-value="AI聊天" onclick="selectCat(this)">AI聊天</button>
@@ -797,71 +703,71 @@ echo "保存后等待1-2分钟即可访问"
     <script>
 var aiTools = {
     "AI聊天": [
-        {name:"ChatGPT",price:"免费/付费",tag:"全球第一",link:"https://chat.openai.com"},
-        {name:"Claude",price:"免费/付费",tag:"长文本之王",link:"https://claude.ai"},
-        {name:"文心一言",price:"免费",tag:"国产首选",link:"https://yiyan.baidu.com"},
-        {name:"Kimi",price:"免费",tag:"长文本神器",link:"https://kimi.moonshot.cn"}
+        {name:"ChatGPT",price:"Free/Paid",tag:"#1 World",link:"https://chat.openai.com"},
+        {name:"Claude",price:"Free/Paid",tag:"Long Text",link:"https://claude.ai"},
+        {name:"Wenxin Yiyan",price:"Free",tag:"Baidu CN",link:"https://yiyan.baidu.com"},
+        {name:"Kimi",price:"Free",tag:"2M Context",link:"https://kimi.moonshot.cn"}
     ],
     "图像生成": [
-        {name:"Midjourney",price:"$10/月",tag:"艺术最强",link:"https://midjourney.com"},
-        {name:"Stable Diffusion",price:"免费",tag:"开源免费",link:"https://stability.ai"},
-        {name:"通义万相",price:"免费",tag:"国产免费",link:"https://wanxiang.aliyun.com"}
+        {name:"Midjourney",price:"$10/mo",tag:"#1 Art",link:"https://midjourney.com"},
+        {name:"Stable Diffusion",price:"Free",tag:"Open Source",link:"https://stability.ai"},
+        {name:"Tongyi Wanxiang",price:"Free",tag:"Alibaba",link:"https://wanxiang.aliyun.com"}
     ],
     "视频生成": [
-        {name:"Runway",price:"付费",tag:"视频最强",link:"https://runwayml.com"},
-        {name:"Pika",price:"免费",tag:"新秀",link:"https://pika.art"},
-        {name:"HeyGen",price:"免费",tag:"数字人",link:"https://heygen.com"}
+        {name:"Runway",price:"Paid",tag:"#1 Video",link:"https://runwayml.com"},
+        {name:"Pika",price:"Free",tag:"New",link:"https://pika.art"},
+        {name:"HeyGen",price:"Free",tag:"Avatar",link:"https://heygen.com"}
     ],
     "编程开发": [
-        {name:"Cursor",price:"免费",tag:"编程神器",link:"https://cursor.sh"},
-        {name:"GitHub Copilot",price:"$10/月",tag:"老牌",link:"https://github.com/features/copilot"},
-        {name:"通义灵码",price:"免费",tag:"国产免费",link:"https://lingma.aliyun.com"}
+        {name:"Cursor",price:"Free",tag:"Coding AI",link:"https://cursor.sh"},
+        {name:"GitHub Copilot",price:"$10/mo",tag:"Microsoft",link:"https://github.com/features/copilot"},
+        {name:"Tongyi Lingma",price:"Free",tag:"Alibaba",link:"https://lingma.aliyun.com"}
     ],
     "写作创作": [
-        {name:"Notion AI",price:"付费",tag:"文档神器",link:"https://notion.so"},
-        {name:"秘塔写作猫",price:"免费",tag:"国产",link:"https://xiezuocat.com"}
+        {name:"Notion AI",price:"Paid",tag:"Docs",link:"https://notion.so"},
+        {name:"Xiaocang Write",price:"Free",tag:"CN Writer",link:"https://xiezuocat.com"}
     ],
     "语音合成": [
-        {name:"ElevenLabs",price:"免费",tag:"音质最强",link:"https://elevenlabs.io"},
-        {name:"讯飞语音合成",price:"免费",tag:"国产",link:"https://www.xfyun.cn"}
+        {name:"ElevenLabs",price:"Free",tag:"#1 Voice",link:"https://elevenlabs.io"},
+        {name:"iFlytek TTS",price:"Free",tag:"CN Voice",link:"https://www.xfyun.cn"}
     ],
     "数据分析": [
-        {name:"ChatPDF",price:"免费",tag:"PDF分析",link:"https://chatpdf.com"},
-        {name:"Kimi",price:"免费",tag:"免费",link:"https://kimi.moonshot.cn"}
+        {name:"ChatPDF",price:"Free",tag:"PDF AI",link:"https://chatpdf.com"},
+        {name:"Kimi",price:"Free",tag:"PDF CN",link:"https://kimi.moonshot.cn"}
     ],
     "AI设计": [
-        {name:"Canva AI",price:"免费",tag:"设计入门",link:"https://canva.com"},
-        {name:"稿定AI",price:"免费",tag:"国产",link:"https://gaoding.com"}
+        {name:"Canva AI",price:"Free",tag:"Design",link:"https://canva.com"},
+        {name:"Gaoding AI",price:"Free",tag:"CN Design",link:"https://gaoding.com"}
     ],
     "AI营销": [
-        {name:"秘塔AI",price:"免费",tag:"国产",link:"https://xiezuocat.com"}
+        {name:"Xiaocang AI",price:"Free",tag:"Marketing",link:"https://xiezuocat.com"}
     ],
     "翻译语言": [
-        {name:"DeepL",price:"免费",tag:"翻译最强",link:"https://www.deepl.com"},
-        {name:"腾讯翻译",price:"免费",tag:"免费",link:"https://fanyi.qq.com"}
+        {name:"DeepL",price:"Free",tag:"#1 Translate",link:"https://www.deepl.com"},
+        {name:"Tencent Translate",price:"Free",tag:"Tencent",link:"https://fanyi.qq.com"}
     ],
     "教育学习": [
-        {name:"Kimi",price:"免费",tag:"免费",link:"https://kimi.moonshot.cn"},
-        {name:"智谱清言",price:"免费",tag:"国产",link:"https://www.zhipuai.cn"}
+        {name:"Kimi",price:"Free",tag:"Learning",link:"https://kimi.moonshot.cn"},
+        {name:"Zhipu Qingyan",price:"Free",tag:"Tutor",link:"https://www.zhipuai.cn"}
     ],
     "短视频": [
-        {name:"剪映",price:"免费",tag:"神器",link:"https://www.capcut.cn"},
-        {name:"必剪",price:"免费",tag:"UP主",link:"https://member.bilibili.com"}
+        {name:"Jianying",price:"Free",tag:"Video Edit",link:"https://www.capcut.cn"},
+        {name:"B Cut",price:"Free",tag:"Bilibili",link:"https://member.bilibili.com"}
     ],
     "PPT制作": [
-        {name:"Gamma",price:"免费",tag:"PPT神器",link:"https://gamma.app"},
-        {name:"AiPPT",price:"免费",tag:"国产",link:"https://aippt.cn"}
+        {name:"Gamma",price:"Free",tag:"AI PPT",link:"https://gamma.app"},
+        {name:"AiPPT",price:"Free",tag:"CN PPT",link:"https://aippt.cn"}
     ],
     "电商运营": [
-        {name:"Shopify AI",price:"付费",tag:"电商",link:"https://shopify.com"},
-        {name:"稿定设计",price:"免费",tag:"国产",link:"https://gaoding.com"}
+        {name:"Shopify AI",price:"Paid",tag:"E-commerce",link:"https://shopify.com"},
+        {name:"Gaoding Design",price:"Free",tag:"CN Ecom",link:"https://gaoding.com"}
     ]
 };
 
 var keywords = {
     "chatgpt":"AI聊天","gpt":"AI聊天","聊天":"AI聊天","问答":"AI聊天","ai":"AI聊天","对话":"AI聊天",
     "图片":"图像生成","画图":"图像生成","midjourney":"图像生成","mj":"图像生成","dalle":"图像生成","绘图":"图像生成",
-    "视频":"视频生成","剪辑":"视频生成","runway":"视频生成","pika":"视频生成","sora":"视频生成",
+    "视频":"视频生成","剪辑":"视频生成","做视频":"视频生成","runway":"视频生成","pika":"视频生成","sora":"视频生成",
     "编程":"编程开发","代码":"编程开发","写代码":"编程开发","copilot":"编程开发","cursor":"编程开发",
     "写作":"写作创作","文案":"写作创作","润色":"写作创作",
     "语音":"语音合成","配音":"语音合成","tts":"语音合成",
@@ -900,13 +806,11 @@ function matchAI() {
     
     if (!userInput && !selectedCategory) {
         results.classList.remove('show');
-        // 恢复显示热门工具和选择场景
         if(quickSection) quickSection.style.display = 'block';
         if(catsSection) catsSection.style.display = 'block';
         return;
     }
     
-    // 隐藏热门工具和选择场景区域
     if(quickSection) quickSection.style.display = 'none';
     if(catsSection) catsSection.style.display = 'none';
     
@@ -935,7 +839,7 @@ function matchAI() {
         html += '</div>';
         html += '<div style="display:flex;align-items:center;">';
         html += '<span class="result-price">' + tool.price + '</span>';
-        if (tool.link) html += '<a href="' + tool.link + '" target="_blank" class="result-link">访问</a>';
+        if (tool.link) html += '<a href="' + tool.link + '" target="_blank" class="result-link">Visit</a>';
         html += '</div></div>';
     }
     
@@ -945,47 +849,3 @@ function matchAI() {
     </script>
 </body>
 </html>
-# AI神器库 - 部署到GitHub Pages教程
-
-## 步骤一：创建GitHub仓库并推送代码
-
-1. 打开浏览器，登录GitHub：https://github.com
-2. 点击右上角 "+" → "New repository"
-3. 填写：
-   - Repository name: `ai-tool-lib`
-   - Description: `AI神器库 - 让每个普通人都能找到最适合自己的AI`
-   - 选择: **Public**
-   - 不要勾选 "Add a README file"
-4. 点击 "Create repository"
-5. 在页面中找到 "…or push an existing repository from the command line"
-6. 复制下面命令，在本地执行：
-
-```bash
-cd C:\Users\86139\ai-tool-deploy
-git remote add origin https://github.com/你的GitHub用户名/ai-tool-lib.git
-git branch -M main
-git push -u origin main
-```
-
-## 步骤二：开启GitHub Pages
-
-1. 推送成功后，进入仓库页面
-2. 点击 "Settings" → "Pages"
-3. 在 "Build and deployment" 部分：
-   - Source: 选择 **"Deploy from a branch"**
-   - Branch: 选择 **"main"**
-   - 保存
-4. 等待1-2分钟，刷新页面会显示链接：
-   - 例如：`https://你的用户名.github.io/ai-tool-lib/`
-
-## 步骤三：访问测试
-
-打开生成的链接即可访问你的AI神器库！
-
----
-
-## 提示
-
-- 网站文件位置：`C:\Users\86139\ai-tool-deploy\index.html`
-- 每次修改后，执行 `git add . && git commit -m "更新" && git push` 即可同步
-- 域名暂时不需要，等需要时再买
