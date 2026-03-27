@@ -643,27 +643,27 @@
             <div class="quick-grid">
                 <div class="quick-item" onclick="quickSearch('ChatGPT')">
                     <span class="q-name">ChatGPT</span>
-                    <span class="q-desc">Top AI Chat</span>
+                    <span class="q-desc">最强对话AI</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Midjourney')">
                     <span class="q-name">Midjourney</span>
-                    <span class="q-desc">Top AI Art</span>
+                    <span class="q-desc">AI绘图顶流</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Claude')">
                     <span class="q-name">Claude</span>
-                    <span class="q-desc">Long Text AI</span>
+                    <span class="q-desc">长文本之王</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Kimi')">
                     <span class="q-name">Kimi</span>
-                    <span class="q-desc">2M Context</span>
+                    <span class="q-desc">200万字无损</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Cursor')">
                     <span class="q-name">Cursor</span>
-                    <span class="q-desc">Code AI</span>
+                    <span class="q-desc">编程神器</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Gamma')">
                     <span class="q-name">Gamma</span>
-                    <span class="q-desc">AI PPT</span>
+                    <span class="q-desc">AI生成PPT</span>
                 </div>
             </div>
             </div>
@@ -703,64 +703,64 @@
     <script>
 var aiTools = {
     "AI聊天": [
-        {name:"ChatGPT",price:"Free/Paid",tag:"#1 World",link:"https://chat.openai.com"},
-        {name:"Claude",price:"Free/Paid",tag:"Long Text",link:"https://claude.ai"},
-        {name:"Wenxin Yiyan",price:"Free",tag:"Baidu CN",link:"https://yiyan.baidu.com"},
-        {name:"Kimi",price:"Free",tag:"2M Context",link:"https://kimi.moonshot.cn"}
+        {name:"ChatGPT",price:"免费/付费",tag:"全球第一",link:"https://chat.openai.com"},
+        {name:"Claude",price:"免费/付费",tag:"长文本之王",link:"https://claude.ai"},
+        {name:"文心一言",price:"免费",tag:"国产首选",link:"https://yiyan.baidu.com"},
+        {name:"Kimi",price:"免费",tag:"长文本神器",link:"https://kimi.moonshot.cn"}
     ],
     "图像生成": [
-        {name:"Midjourney",price:"$10/mo",tag:"#1 Art",link:"https://midjourney.com"},
-        {name:"Stable Diffusion",price:"Free",tag:"Open Source",link:"https://stability.ai"},
-        {name:"Tongyi Wanxiang",price:"Free",tag:"Alibaba",link:"https://wanxiang.aliyun.com"}
+        {name:"Midjourney",price:"$10/月",tag:"艺术最强",link:"https://midjourney.com"},
+        {name:"Stable Diffusion",price:"免费",tag:"开源免费",link:"https://stability.ai"},
+        {name:"通义万相",price:"免费",tag:"国产免费",link:"https://wanxiang.aliyun.com"}
     ],
     "视频生成": [
-        {name:"Runway",price:"Paid",tag:"#1 Video",link:"https://runwayml.com"},
-        {name:"Pika",price:"Free",tag:"New",link:"https://pika.art"},
-        {name:"HeyGen",price:"Free",tag:"Avatar",link:"https://heygen.com"}
+        {name:"Runway",price:"付费",tag:"视频最强",link:"https://runwayml.com"},
+        {name:"Pika",price:"免费",tag:"新秀",link:"https://pika.art"},
+        {name:"HeyGen",price:"免费",tag:"数字人",link:"https://heygen.com"}
     ],
     "编程开发": [
-        {name:"Cursor",price:"Free",tag:"Coding AI",link:"https://cursor.sh"},
-        {name:"GitHub Copilot",price:"$10/mo",tag:"Microsoft",link:"https://github.com/features/copilot"},
-        {name:"Tongyi Lingma",price:"Free",tag:"Alibaba",link:"https://lingma.aliyun.com"}
+        {name:"Cursor",price:"免费",tag:"编程神器",link:"https://cursor.sh"},
+        {name:"GitHub Copilot",price:"$10/月",tag:"老牌",link:"https://github.com/features/copilot"},
+        {name:"通义灵码",price:"免费",tag:"国产免费",link:"https://lingma.aliyun.com"}
     ],
     "写作创作": [
-        {name:"Notion AI",price:"Paid",tag:"Docs",link:"https://notion.so"},
-        {name:"Xiaocang Write",price:"Free",tag:"CN Writer",link:"https://xiezuocat.com"}
+        {name:"Notion AI",price:"付费",tag:"文档神器",link:"https://notion.so"},
+        {name:"秘塔写作猫",price:"免费",tag:"国产",link:"https://xiezuocat.com"}
     ],
     "语音合成": [
-        {name:"ElevenLabs",price:"Free",tag:"#1 Voice",link:"https://elevenlabs.io"},
-        {name:"iFlytek TTS",price:"Free",tag:"CN Voice",link:"https://www.xfyun.cn"}
+        {name:"ElevenLabs",price:"免费",tag:"音质最强",link:"https://elevenlabs.io"},
+        {name:"讯飞语音合成",price:"免费",tag:"国产",link:"https://www.xfyun.cn"}
     ],
     "数据分析": [
-        {name:"ChatPDF",price:"Free",tag:"PDF AI",link:"https://chatpdf.com"},
-        {name:"Kimi",price:"Free",tag:"PDF CN",link:"https://kimi.moonshot.cn"}
+        {name:"ChatPDF",price:"免费",tag:"PDF分析",link:"https://chatpdf.com"},
+        {name:"Kimi",price:"免费",tag:"免费",link:"https://kimi.moonshot.cn"}
     ],
     "AI设计": [
-        {name:"Canva AI",price:"Free",tag:"Design",link:"https://canva.com"},
-        {name:"Gaoding AI",price:"Free",tag:"CN Design",link:"https://gaoding.com"}
+        {name:"Canva AI",price:"免费",tag:"设计入门",link:"https://canva.com"},
+        {name:"稿定AI",price:"免费",tag:"国产",link:"https://gaoding.com"}
     ],
     "AI营销": [
-        {name:"Xiaocang AI",price:"Free",tag:"Marketing",link:"https://xiezuocat.com"}
+        {name:"秘塔AI",price:"免费",tag:"国产",link:"https://xiezuocat.com"}
     ],
     "翻译语言": [
-        {name:"DeepL",price:"Free",tag:"#1 Translate",link:"https://www.deepl.com"},
-        {name:"Tencent Translate",price:"Free",tag:"Tencent",link:"https://fanyi.qq.com"}
+        {name:"DeepL",price:"免费",tag:"翻译最强",link:"https://www.deepl.com"},
+        {name:"腾讯翻译",price:"免费",tag:"免费",link:"https://fanyi.qq.com"}
     ],
     "教育学习": [
-        {name:"Kimi",price:"Free",tag:"Learning",link:"https://kimi.moonshot.cn"},
-        {name:"Zhipu Qingyan",price:"Free",tag:"Tutor",link:"https://www.zhipuai.cn"}
+        {name:"Kimi",price:"免费",tag:"免费",link:"https://kimi.moonshot.cn"},
+        {name:"智谱清言",price:"免费",tag:"国产",link:"https://www.zhipuai.cn"}
     ],
     "短视频": [
-        {name:"Jianying",price:"Free",tag:"Video Edit",link:"https://www.capcut.cn"},
-        {name:"B Cut",price:"Free",tag:"Bilibili",link:"https://member.bilibili.com"}
+        {name:"剪映",price:"免费",tag:"神器",link:"https://www.capcut.cn"},
+        {name:"必剪",price:"免费",tag:"UP主",link:"https://member.bilibili.com"}
     ],
     "PPT制作": [
-        {name:"Gamma",price:"Free",tag:"AI PPT",link:"https://gamma.app"},
-        {name:"AiPPT",price:"Free",tag:"CN PPT",link:"https://aippt.cn"}
+        {name:"Gamma",price:"免费",tag:"PPT神器",link:"https://gamma.app"},
+        {name:"AiPPT",price:"免费",tag:"国产",link:"https://aippt.cn"}
     ],
     "电商运营": [
-        {name:"Shopify AI",price:"Paid",tag:"E-commerce",link:"https://shopify.com"},
-        {name:"Gaoding Design",price:"Free",tag:"CN Ecom",link:"https://gaoding.com"}
+        {name:"Shopify AI",price:"付费",tag:"电商",link:"https://shopify.com"},
+        {name:"稿定设计",price:"免费",tag:"国产",link:"https://gaoding.com"}
     ]
 };
 
@@ -839,7 +839,7 @@ function matchAI() {
         html += '</div>';
         html += '<div style="display:flex;align-items:center;">';
         html += '<span class="result-price">' + tool.price + '</span>';
-        if (tool.link) html += '<a href="' + tool.link + '" target="_blank" class="result-link">Visit</a>';
+        if (tool.link) html += '<a href="' + tool.link + '" target="_blank" class="result-link">访问</a>';
         html += '</div></div>';
     }
     
