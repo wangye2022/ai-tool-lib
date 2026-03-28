@@ -7,73 +7,81 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --cyan: #00f0ff; --green: #00ff88; --dark: #050508; }
-        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark); color: white; min-height: 100vh; }
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark); color: white; min-height: 100vh; overflow-x: hidden; }
         .bg { position: fixed; inset: 0; z-index: 0; }
-        .container { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 30px 20px; }
-        .main-card { width: 100%; max-width: 900px; }
-        .logo-section { text-align: center; margin-bottom: 32px; }
-        .logo { display: flex; align-items: center; justify-content: center; gap: 14px; font-size: 3.2rem; font-weight: 700; }
-        .logo-icon { 
-            width: 56px; height: 56px; 
-            background: linear-gradient(135deg, var(--cyan), var(--green)); 
-            border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 0 20px var(--cyan);
-        }
+        .container { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; padding: 20px 20px 10px; }
+        .main-card { width: 100%; max-width: 700px; }
+        .logo-section { text-align: center; margin-bottom: 16px; }
+        .logo { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 2.4rem; font-weight: 700; }
+        .logo-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--cyan), var(--green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; box-shadow: 0 0 15px var(--cyan); }
         .logo-text { background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .tagline { font-size: 1rem; color: #00f0ff; font-weight: 600; margin-top: 10px; text-shadow: 0 0 20px rgba(0,240,255,0.5); }
-        .search-box { display: flex; gap: 16px; margin-bottom: 28px; max-width: 700px; margin: 0 auto 28px; }
-        .search-input { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 22px 28px; font-size: 1.15rem; color: white; }
+        .tagline { font-size: 0.85rem; color: #00f0ff; font-weight: 600; margin-top: 6px; text-shadow: 0 0 15px rgba(0,240,255,0.5); }
+        .search-box { display: flex; gap: 10px; margin-bottom: 16px; }
+        .search-input { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 14px 18px; font-size: 1rem; color: white; }
         .search-input::placeholder { color: rgba(255,255,255,0.3); }
         .search-input:focus { outline: none; border-color: var(--cyan); }
-        .search-btn { background: linear-gradient(135deg, var(--cyan), var(--green)); border: none; border-radius: 16px; padding: 22px 36px; font-size: 1.1rem; font-weight: 600; color: #000; cursor: pointer; }
-        .quick-title, .cats-title { font-size: 0.9rem; color: #00f0ff; font-weight: 600; margin-bottom: 16px; text-align: center; }
-        .quick-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 28px; max-width: 700px; margin: 0 auto 28px; }
-        .quick-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; cursor: pointer; min-height: 70px; }
+        .search-btn { background: linear-gradient(135deg, var(--cyan), var(--green)); border: none; border-radius: 12px; padding: 14px 24px; font-size: 1rem; font-weight: 600; color: #000; cursor: pointer; }
+        
+        .quick-title, .cats-title { font-size: 0.8rem; color: #00f0ff; font-weight: 600; margin-bottom: 10px; text-align: left; padding-left: 4px; }
+        
+        /* 热门工具 - 电脑端5列 */
+        .quick-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 16px; }
+        .quick-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; cursor: pointer; min-height: 56px; }
         .quick-item:hover { background: rgba(0,240,255,0.15); border-color: var(--cyan); }
-        .quick-item .name { font-size: 0.9rem; color: white; font-weight: 600; white-space: nowrap; }
-        .quick-item .desc { font-size: 0.65rem; color: rgba(255,255,255,0.5); margin-top: 4px; white-space: nowrap; }
-        .cats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 28px; max-width: 700px; margin: 0 auto 28px; }
-        .cat-btn { display: flex; align-items: center; justify-content: center; padding: 14px 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; color: rgba(255,255,255,0.7); font-size: 0.85rem; cursor: pointer; white-space: nowrap; min-height: 50px; }
+        .quick-item .name { font-size: 0.8rem; color: white; font-weight: 600; white-space: nowrap; }
+        .quick-item .desc { font-size: 0.6rem; color: rgba(255,255,255,0.5); margin-top: 2px; white-space: nowrap; }
+        
+        /* 选择场景 - 电脑端6列 */
+        .cats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 12px; }
+        .cat-btn { display: flex; align-items: center; justify-content: center; padding: 10px 6px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; color: rgba(255,255,255,0.7); font-size: 0.8rem; cursor: pointer; white-space: nowrap; min-height: 40px; }
         .cat-btn:hover { background: rgba(0,240,255,0.12); border-color: rgba(0,240,255,0.4); color: white; }
         .cat-btn.active { background: linear-gradient(135deg, rgba(0,240,255,0.25), rgba(0,255,136,0.15)); border-color: var(--cyan); color: white; }
-        .results { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); }
-        .results.show { display: block; }
-        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-        .results-title { font-size: 1rem; color: var(--cyan); font-weight: 600; }
-        .result-list { display: flex; flex-direction: column; gap: 10px; }
-        .result-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; }
-        .result-info { display: flex; align-items: center; gap: 12px; }
-        .result-name { font-size: 1rem; font-weight: 600; color: var(--cyan); }
-        .result-tag { font-size: 0.6rem; padding: 3px 8px; background: linear-gradient(135deg, var(--cyan), var(--green)); color: #000; border-radius: 10px; font-weight: 600; }
-        .result-price { font-size: 0.8rem; color: var(--green); margin-right: 14px; }
-        .result-link { padding: 8px 18px; background: linear-gradient(135deg, var(--cyan), var(--green)); color: #000; text-decoration: none; border-radius: 8px; font-size: 0.8rem; font-weight: 600; }
-        .footer { text-align: center; color: rgba(255,255,255,0.2); font-size: 0.7rem; margin-top: 20px; }
         
-        /* 手机端适配 */
+        .results { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .results.show { display: block; }
+        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .results-title { font-size: 0.95rem; color: var(--cyan); font-weight: 600; }
+        .result-list { display: flex; flex-direction: column; gap: 8px; }
+        .result-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; }
+        .result-info { display: flex; align-items: center; gap: 10px; }
+        .result-name { font-size: 0.9rem; font-weight: 600; color: var(--cyan); }
+        .result-tag { font-size: 0.55rem; padding: 2px 6px; background: linear-gradient(135deg, var(--cyan), var(--green)); color: #000; border-radius: 8px; font-weight: 600; }
+        .result-price { font-size: 0.75rem; color: var(--green); margin-right: 10px; }
+        .result-link { padding: 6px 14px; background: linear-gradient(135deg, var(--cyan), var(--green)); color: #000; text-decoration: none; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+        .footer { text-align: center; color: rgba(255,255,255,0.2); font-size: 0.65rem; margin-top: 12px; }
+        
+        /* 手机端适配 - 所有内容显示在一个页面 */
         @media (max-width: 768px) { 
-            .container { padding: 15px 12px; } 
-            .main-card { padding: 15px 12px; } 
-            .logo { font-size: 1.8rem; gap: 10px; }
-            .logo-icon { width: 40px; height: 40px; font-size: 1.4rem; }
-            .tagline { font-size: 0.85rem; }
-            .search-box { flex-direction: column; gap: 10px; }
-            .search-input { padding: 14px 16px; font-size: 1rem; }
-            .search-btn { width: 100%; padding: 14px; font-size: 1rem; }
-            .quick-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-            .quick-item { padding: 12px 8px; min-height: 60px; }
-            .quick-item .name { font-size: 0.8rem; }
-            .quick-item .desc { font-size: 0.6rem; }
-            .cats-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-            .cat-btn { padding: 10px 6px; font-size: 0.75rem; min-height: 44px; }
-            .result-item { flex-wrap: wrap; gap: 8px; }
-            .result-link { width: 100%; text-align: center; }
+            .container { padding: 12px 10px 8px; min-height: auto; } 
+            .logo { font-size: 1.6rem; gap: 8px; }
+            .logo-icon { width: 32px; height: 32px; font-size: 1rem; }
+            .tagline { font-size: 0.7rem; }
+            .search-box { margin-bottom: 12px; }
+            .search-input { padding: 10px 12px; font-size: 0.9rem; }
+            .search-btn { padding: 10px 16px; font-size: 0.9rem; }
+            
+            /* 手机端热门工具 - 5列2行，缩小对齐 */
+            .quick-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 12px; }
+            .quick-item { padding: 8px 4px; min-height: 48px; }
+            .quick-item .name { font-size: 0.7rem; }
+            .quick-item .desc { font-size: 0.5rem; }
+            
+            /* 手机端选择场景 - 3列2行，缩小对齐 */
+            .cats-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+            .cat-btn { padding: 8px 4px; font-size: 0.7rem; min-height: 36px; }
+            
+            .result-item { padding: 10px 12px; }
+            .result-name { font-size: 0.85rem; }
+            .result-link { padding: 5px 10px; font-size: 0.7rem; }
+            .footer { font-size: 0.6rem; margin-top: 10px; }
         }
-        @media (max-width: 400px) { 
-            .logo { font-size: 1.5rem; }
-            .quick-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
-            .cats-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+        
+        /* 超小屏幕 */
+        @media (max-width: 380px) { 
+            .quick-grid { gap: 4px; }
+            .quick-item { padding: 6px 2px; min-height: 42px; }
+            .cats-grid { gap: 4px; }
+            .cat-btn { padding: 6px 2px; font-size: 0.65rem; min-height: 32px; }
         }
     </style>
 </head>
@@ -103,7 +111,7 @@
                 <div class="quick-item" onclick="quickSearch('Cursor')"><span class="name">Cursor</span><span class="desc">编程神器</span></div>
                 <div class="quick-item" onclick="quickSearch('通义千问')"><span class="name">通义千问</span><span class="desc">阿里AI</span></div>
                 <div class="quick-item" onclick="quickSearch('腾讯元宝')"><span class="name">腾讯元宝</span><span class="desc">腾讯AI</span></div>
-                <div class="quick-item" onclick="quickSearch('Accio')"><span class="name">Accio</span><span class="desc">Shopify官方</span></div>
+                <div class="quick-item" onclick="quickSearch('Accio')"><span class="name">Accio</span><span class="desc">Shopify</span></div>
                 <div class="quick-item" onclick="quickSearch('Gamma')"><span class="name">Gamma</span><span class="desc">AI生成PPT</span></div>
             </div>
             </div>
