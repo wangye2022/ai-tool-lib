@@ -7,139 +7,123 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --cyan: #00f0ff; --green: #00ff88; --dark: #050508; }
-        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark); color: white; min-height: 100vh; overflow-x: hidden; display: flex; justify-content: center; align-items: flex-start; }
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark); color: white; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 10px; }
         .bg { position: fixed; inset: 0; z-index: 0; }
-        .container { position: relative; z-index: 2; width: 100%; max-width: 720px; padding: 24px 20px 20px; display: flex; flex-direction: column; align-items: center; }
-        .main-card { width: 100%; }
-        .logo-section { text-align: center; margin-bottom: 20px; }
-        .logo { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 2.6rem; font-weight: 700; }
-        .logo-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--cyan), var(--green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 0 20px var(--cyan); }
+        .container { position: relative; z-index: 2; width: 100%; max-width: 700px; display: flex; flex-direction: column; }
+        .logo-section { text-align: center; margin-bottom: 16px; }
+        .logo { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 2.2rem; font-weight: 700; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--cyan), var(--green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: 0 0 15px var(--cyan); }
         .logo-text { background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .tagline { font-size: 0.95rem; color: #00f0ff; font-weight: 600; margin-top: 8px; text-shadow: 0 0 20px rgba(0,240,255,0.5); }
-        .search-box { display: flex; gap: 12px; margin-bottom: 20px; }
-        .search-input { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 16px 20px; font-size: 1.05rem; color: white; }
+        .tagline { font-size: 0.85rem; color: #00f0ff; font-weight: 600; margin-top: 6px; text-shadow: 0 0 15px rgba(0,240,255,0.5); }
+        .search-box { display: flex; gap: 10px; margin-bottom: 16px; }
+        .search-input { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 14px 16px; font-size: 0.95rem; color: white; }
         .search-input::placeholder { color: rgba(255,255,255,0.3); }
         .search-input:focus { outline: none; border-color: var(--cyan); }
-        .search-btn { background: linear-gradient(135deg, var(--cyan), var(--green)); border: none; border-radius: 14px; padding: 16px 28px; font-size: 1.05rem; font-weight: 600; color: #000; cursor: pointer; }
+        .search-btn { background: linear-gradient(135deg, var(--cyan), var(--green)); border: none; border-radius: 12px; padding: 14px 24px; font-size: 0.95rem; font-weight: 600; color: #000; cursor: pointer; }
         
-        .quick-title, .cats-title { font-size: 0.9rem; color: #00f0ff; font-weight: 600; margin-bottom: 12px; text-align: left; padding-left: 4px; }
+        .quick-title, .cats-title { font-size: 0.85rem; color: #00f0ff; font-weight: 600; margin-bottom: 10px; text-align: left; }
         
-        /* 热门工具 - 电脑端5列 */
-        .quick-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; }
-        .quick-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; cursor: pointer; min-height: 60px; }
+        .quick-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 16px; }
+        .quick-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; cursor: pointer; min-height: 54px; }
         .quick-item:hover { background: rgba(0,240,255,0.15); border-color: var(--cyan); }
-        .quick-item .name { font-size: 0.85rem; color: white; font-weight: 600; white-space: nowrap; }
-        .quick-item .desc { font-size: 0.65rem; color: rgba(255,255,255,0.5); margin-top: 3px; white-space: nowrap; }
+        .quick-item .name { font-size: 0.8rem; color: white; font-weight: 600; }
+        .quick-item .desc { font-size: 0.6rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
         
-        /* 选择场景 - 电脑端6列 */
-        .cats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 16px; }
-        .cat-btn { display: flex; align-items: center; justify-content: center; padding: 12px 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; color: rgba(255,255,255,0.7); font-size: 0.85rem; cursor: pointer; white-space: nowrap; min-height: 44px; }
+        .cats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 14px; }
+        .cat-btn { display: flex; align-items: center; justify-content: center; padding: 10px 6px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; color: rgba(255,255,255,0.7); font-size: 0.8rem; cursor: pointer; min-height: 38px; }
         .cat-btn:hover { background: rgba(0,240,255,0.12); border-color: rgba(0,240,255,0.4); color: white; }
         .cat-btn.active { background: linear-gradient(135deg, rgba(0,240,255,0.25), rgba(0,255,136,0.15)); border-color: var(--cyan); color: white; }
         
-        .results { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .results { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); }
         .results.show { display: block; }
-        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .results-title { font-size: 1rem; color: var(--cyan); font-weight: 600; }
+        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .results-title { font-size: 0.95rem; color: var(--cyan); font-weight: 600; }
         .result-list { display: flex; flex-direction: column; gap: 8px; }
-        .result-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; }
-        .result-info { display: flex; align-items: center; gap: 12px; }
-        .result-name { font-size: 0.95rem; font-weight: 600; color: var(--cyan); }
-        .result-tag { font-size: 0.6rem; padding: 3px 8px; background: linear-gradient(135deg, var(--cyan), var(--green)); color: #000; border-radius: 10px; font-weight: 600; }
-        .result-price { font-size: 0.8rem; color: var(--green); margin-right: 12px; }
-        .result-link { padding: 8px 16px; background: linear-gradient(135deg, var(--cyan), var(--green)); color: #000; text-decoration: none; border-radius: 8px; font-size: 0.8rem; font-weight: 600; }
-        .footer { text-align: center; color: rgba(255,255,255,0.25); font-size: 0.7rem; margin-top: 16px; }
+        .result-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; }
+        .result-info { display: flex; align-items: center; gap: 10px; }
+        .result-name { font-size: 0.9rem; font-weight: 600; color: var(--cyan); }
+        .result-tag { font-size: 0.55rem; padding: 2px 6px; background: linear-gradient(135deg, var(--cyan), var(--green)); color: #000; border-radius: 8px; font-weight: 600; }
+        .result-price { font-size: 0.75rem; color: var(--green); margin-right: 10px; }
+        .result-link { padding: 6px 14px; background: linear-gradient(135deg, var(--cyan), var(--green)); color: #000; text-decoration: none; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+        .footer { text-align: center; color: rgba(255,255,255,0.25); font-size: 0.65rem; margin-top: 14px; }
         
-        /* 手机端适配 */
         @media (max-width: 768px) { 
-            .container { padding: 16px 12px 12px; max-width: 100%; } 
-            .logo { font-size: 1.8rem; gap: 10px; }
-            .logo-icon { width: 36px; height: 36px; font-size: 1.2rem; }
-            .tagline { font-size: 0.8rem; }
-            .search-box { margin-bottom: 16px; }
-            .search-input { padding: 12px 14px; font-size: 0.95rem; }
-            .search-btn { padding: 12px 20px; font-size: 0.95rem; }
+            body { padding: 8px; }
+            .logo { font-size: 1.6rem; gap: 8px; }
+            .logo-icon { width: 32px; height: 32px; font-size: 1rem; }
+            .tagline { font-size: 0.75rem; }
+            .search-input { padding: 12px 14px; font-size: 0.9rem; }
+            .search-btn { padding: 12px 18px; font-size: 0.9rem; }
             
-            /* 手机端热门工具 - 5列2行 */
-            .quick-grid { grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 16px; }
-            .quick-item { padding: 10px 4px; min-height: 52px; }
-            .quick-item .name { font-size: 0.75rem; }
-            .quick-item .desc { font-size: 0.55rem; }
+            .quick-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 12px; }
+            .quick-item { padding: 8px 4px; min-height: 46px; }
+            .quick-item .name { font-size: 0.7rem; }
+            .quick-item .desc { font-size: 0.5rem; }
             
-            /* 手机端选择场景 - 3列4行 */
-            .cats-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
-            .cat-btn { padding: 10px 4px; font-size: 0.75rem; min-height: 40px; }
+            .cats-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+            .cat-btn { padding: 8px 4px; font-size: 0.7rem; min-height: 34px; }
             
-            .result-item { padding: 12px 14px; }
-            .result-name { font-size: 0.9rem; }
-            .result-link { padding: 6px 12px; font-size: 0.75rem; }
-            .footer { font-size: 0.65rem; margin-top: 12px; }
-        }
-        
-        @media (max-width: 400px) { 
-            .quick-grid { gap: 6px; }
-            .quick-item { padding: 8px 2px; min-height: 46px; }
-            .cats-grid { gap: 6px; }
-            .cat-btn { padding: 8px 2px; font-size: 0.7rem; min-height: 36px; }
+            .result-item { padding: 10px 12px; }
+            .result-name { font-size: 0.85rem; }
+            .result-link { padding: 5px 10px; font-size: 0.7rem; }
+            .footer { font-size: 0.6rem; margin-top: 10px; }
         }
     </style>
 </head>
 <body>
     <div class="bg"></div>
     <div class="container">
-        <div class="main-card">
-            <div class="logo-section">
-                <div class="logo">
-                    <div class="logo-icon">🤖</div>
-                    <span class="logo-text">AI神器库</span>
-                </div>
-                <div class="tagline">让每个普通人都能找到最适合自己的AI工具</div>
+        <div class="logo-section">
+            <div class="logo">
+                <div class="logo-icon">🤖</div>
+                <span class="logo-text">AI神器库</span>
             </div>
-            <div class="search-box">
-                <input type="text" class="search-input" id="userInput" placeholder="输入需求：写代码、生成图片、制作视频..." onkeypress="if(event.key==='Enter')matchAI()">
-                <button class="search-btn" onclick="matchAI()">搜索</button>
-            </div>
-            <div id="quickSection">
-            <div class="quick-title">🔥 热门工具</div>
-            <div class="quick-grid">
-                <div class="quick-item" onclick="quickSearch('OpenClaw')"><span class="name">OpenClaw</span><span class="desc">AI助手</span></div>
-                <div class="quick-item" onclick="quickSearch('ChatGPT')"><span class="name">ChatGPT</span><span class="desc">最强对话AI</span></div>
-                <div class="quick-item" onclick="quickSearch('Claude')"><span class="name">Claude</span><span class="desc">长文本之王</span></div>
-                <div class="quick-item" onclick="quickSearch('Midjourney')"><span class="name">Midjourney</span><span class="desc">AI绘图顶流</span></div>
-                <div class="quick-item" onclick="quickSearch('Kimi')"><span class="name">Kimi</span><span class="desc">200万字无损</span></div>
-                <div class="quick-item" onclick="quickSearch('Cursor')"><span class="name">Cursor</span><span class="desc">编程神器</span></div>
-                <div class="quick-item" onclick="quickSearch('通义千问')"><span class="name">通义千问</span><span class="desc">阿里AI</span></div>
-                <div class="quick-item" onclick="quickSearch('腾讯元宝')"><span class="name">腾讯元宝</span><span class="desc">腾讯AI</span></div>
-                <div class="quick-item" onclick="quickSearch('Accio')"><span class="name">Accio</span><span class="desc">Shopify</span></div>
-                <div class="quick-item" onclick="quickSearch('Gamma')"><span class="name">Gamma</span><span class="desc">AI生成PPT</span></div>
-            </div>
-            </div>
-            <div id="catsSection">
-            <div class="cats-title">📂 选择场景</div>
-            <div class="cats-grid">
-                <button class="cat-btn" data-value="AI聊天" onclick="selectCat(this)">AI聊天</button>
-                <button class="cat-btn" data-value="AI大模型" onclick="selectCat(this)">AI大模型</button>
-                <button class="cat-btn" data-value="AI编程" onclick="selectCat(this)">AI编程</button>
-                <button class="cat-btn" data-value="AI绘图" onclick="selectCat(this)">AI绘图</button>
-                <button class="cat-btn" data-value="AI视频" onclick="selectCat(this)">AI视频</button>
-                <button class="cat-btn" data-value="AI写作" onclick="selectCat(this)">AI写作</button>
-                <button class="cat-btn" data-value="AI语音" onclick="selectCat(this)">AI语音</button>
-                <button class="cat-btn" data-value="数据分析" onclick="selectCat(this)">数据分析</button>
-                <button class="cat-btn" data-value="AI设计" onclick="selectCat(this)">AI设计</button>
-                <button class="cat-btn" data-value="AI营销" onclick="selectCat(this)">AI营销</button>
-                <button class="cat-btn" data-value="翻译" onclick="selectCat(this)">翻译</button>
-                <button class="cat-btn" data-value="AI电商" onclick="selectCat(this)">AI电商</button>
-            </div>
-            </div>
-            <div class="results" id="results">
-                <div class="results-header">
-                    <span class="results-title">为你推荐</span>
-                    <span class="results-count" id="resultCount"></span>
-                </div>
-                <div class="result-list" id="resultList"></div>
-            </div>
-            <div class="footer">精选全球顶级AI工具  助力工作生活效率翻倍</div>
+            <div class="tagline">让每个普通人都能找到最适合自己的AI工具</div>
         </div>
+        <div class="search-box">
+            <input type="text" class="search-input" id="userInput" placeholder="输入需求：写代码、生成图片、制作视频..." onkeypress="if(event.key==='Enter')matchAI()">
+            <button class="search-btn" onclick="matchAI()">搜索</button>
+        </div>
+        <div id="quickSection">
+        <div class="quick-title">🔥 热门工具</div>
+        <div class="quick-grid">
+            <div class="quick-item" onclick="quickSearch('OpenClaw')"><span class="name">OpenClaw</span><span class="desc">AI助手</span></div>
+            <div class="quick-item" onclick="quickSearch('ChatGPT')"><span class="name">ChatGPT</span><span class="desc">最强对话AI</span></div>
+            <div class="quick-item" onclick="quickSearch('Claude')"><span class="name">Claude</span><span class="desc">长文本之王</span></div>
+            <div class="quick-item" onclick="quickSearch('Midjourney')"><span class="name">Midjourney</span><span class="desc">AI绘图顶流</span></div>
+            <div class="quick-item" onclick="quickSearch('Kimi')"><span class="name">Kimi</span><span class="desc">200万字无损</span></div>
+            <div class="quick-item" onclick="quickSearch('Cursor')"><span class="name">Cursor</span><span class="desc">编程神器</span></div>
+            <div class="quick-item" onclick="quickSearch('通义千问')"><span class="name">通义千问</span><span class="desc">阿里AI</span></div>
+            <div class="quick-item" onclick="quickSearch('腾讯元宝')"><span class="name">腾讯元宝</span><span class="desc">腾讯AI</span></div>
+            <div class="quick-item" onclick="quickSearch('Accio')"><span class="name">Accio</span><span class="desc">Shopify</span></div>
+            <div class="quick-item" onclick="quickSearch('Gamma')"><span class="name">Gamma</span><span class="desc">AI生成PPT</span></div>
+        </div>
+        </div>
+        <div id="catsSection">
+        <div class="cats-title">📂 选择场景</div>
+        <div class="cats-grid">
+            <button class="cat-btn" data-value="AI聊天" onclick="selectCat(this)">AI聊天</button>
+            <button class="cat-btn" data-value="AI大模型" onclick="selectCat(this)">AI大模型</button>
+            <button class="cat-btn" data-value="AI编程" onclick="selectCat(this)">AI编程</button>
+            <button class="cat-btn" data-value="AI绘图" onclick="selectCat(this)">AI绘图</button>
+            <button class="cat-btn" data-value="AI视频" onclick="selectCat(this)">AI视频</button>
+            <button class="cat-btn" data-value="AI写作" onclick="selectCat(this)">AI写作</button>
+            <button class="cat-btn" data-value="AI语音" onclick="selectCat(this)">AI语音</button>
+            <button class="cat-btn" data-value="数据分析" onclick="selectCat(this)">数据分析</button>
+            <button class="cat-btn" data-value="AI设计" onclick="selectCat(this)">AI设计</button>
+            <button class="cat-btn" data-value="AI营销" onclick="selectCat(this)">AI营销</button>
+            <button class="cat-btn" data-value="翻译" onclick="selectCat(this)">翻译</button>
+            <button class="cat-btn" data-value="AI电商" onclick="selectCat(this)">AI电商</button>
+        </div>
+        </div>
+        <div class="results" id="results">
+            <div class="results-header">
+                <span class="results-title">为你推荐</span>
+                <span class="results-count" id="resultCount"></span>
+            </div>
+            <div class="result-list" id="resultList"></div>
+        </div>
+        <div class="footer">精选全球顶级AI工具  助力工作生活效率翻倍</div>
     </div>
     <script>
 var aiTools = {
