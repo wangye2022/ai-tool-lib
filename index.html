@@ -13,6 +13,14 @@
         .main-card { width: 100%; max-width: 900px; }
         .logo-section { text-align: center; margin-bottom: 32px; }
         .logo { display: flex; align-items: center; justify-content: center; gap: 14px; font-size: 3.2rem; font-weight: 700; }
+        .logo-icon { 
+            width: 56px; height: 56px; 
+            background: linear-gradient(135deg, var(--cyan), var(--green)); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 0 20px var(--cyan);
+        }
         .logo-text { background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .tagline { font-size: 1rem; color: #00f0ff; font-weight: 600; margin-top: 10px; text-shadow: 0 0 20px rgba(0,240,255,0.5); }
         .search-box { display: flex; gap: 16px; margin-bottom: 28px; max-width: 700px; margin: 0 auto 28px; }
@@ -21,13 +29,13 @@
         .search-input:focus { outline: none; border-color: var(--cyan); }
         .search-btn { background: linear-gradient(135deg, var(--cyan), var(--green)); border: none; border-radius: 16px; padding: 22px 36px; font-size: 1.1rem; font-weight: 600; color: #000; cursor: pointer; }
         .quick-title, .cats-title { font-size: 0.9rem; color: #00f0ff; font-weight: 600; margin-bottom: 16px; text-align: center; }
-        .quick-grid { display: flex; justify-content: center; gap: 14px; margin-bottom: 28px; flex-wrap: wrap; }
-        .quick-item { display: inline-flex; flex-direction: column; align-items: center; padding: 16px 24px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; cursor: pointer; }
+        .quick-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 28px; max-width: 700px; margin: 0 auto 28px; }
+        .quick-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; cursor: pointer; min-height: 70px; }
         .quick-item:hover { background: rgba(0,240,255,0.15); border-color: var(--cyan); }
-        .quick-item .name { font-size: 1rem; color: white; font-weight: 600; }
-        .quick-item .desc { font-size: 0.7rem; color: rgba(255,255,255,0.5); margin-top: 4px; }
-        .cats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 28px; max-width: 700px; margin: 0 auto 28px; }
-        .cat-btn { display: flex; align-items: center; justify-content: center; padding: 16px 18px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; color: rgba(255,255,255,0.7); font-size: 0.9rem; cursor: pointer; white-space: nowrap; }
+        .quick-item .name { font-size: 0.9rem; color: white; font-weight: 600; white-space: nowrap; }
+        .quick-item .desc { font-size: 0.65rem; color: rgba(255,255,255,0.5); margin-top: 4px; white-space: nowrap; }
+        .cats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 28px; max-width: 700px; margin: 0 auto 28px; }
+        .cat-btn { display: flex; align-items: center; justify-content: center; padding: 14px 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; color: rgba(255,255,255,0.7); font-size: 0.85rem; cursor: pointer; white-space: nowrap; min-height: 50px; }
         .cat-btn:hover { background: rgba(0,240,255,0.12); border-color: rgba(0,240,255,0.4); color: white; }
         .cat-btn.active { background: linear-gradient(135deg, rgba(0,240,255,0.25), rgba(0,255,136,0.15)); border-color: var(--cyan); color: white; }
         .results { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); }
@@ -42,8 +50,31 @@
         .result-price { font-size: 0.8rem; color: var(--green); margin-right: 14px; }
         .result-link { padding: 8px 18px; background: linear-gradient(135deg, var(--cyan), var(--green)); color: #000; text-decoration: none; border-radius: 8px; font-size: 0.8rem; font-weight: 600; }
         .footer { text-align: center; color: rgba(255,255,255,0.2); font-size: 0.7rem; margin-top: 20px; }
-        @media (max-width: 768px) { .container { padding: 20px 15px; } .main-card { padding: 20px 15px; } .logo { font-size: 2rem; } .search-box { flex-direction: column; } .search-btn { width: 100%; } .quick-grid { grid-template-columns: repeat(3, 1fr); } .cats-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 480px) { .logo { font-size: 1.6rem; } .quick-grid { grid-template-columns: repeat(2, 1fr); } .cats-grid { grid-template-columns: repeat(2, 1fr); } }
+        
+        /* 手机端适配 */
+        @media (max-width: 768px) { 
+            .container { padding: 15px 12px; } 
+            .main-card { padding: 15px 12px; } 
+            .logo { font-size: 1.8rem; gap: 10px; }
+            .logo-icon { width: 40px; height: 40px; font-size: 1.4rem; }
+            .tagline { font-size: 0.85rem; }
+            .search-box { flex-direction: column; gap: 10px; }
+            .search-input { padding: 14px 16px; font-size: 1rem; }
+            .search-btn { width: 100%; padding: 14px; font-size: 1rem; }
+            .quick-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .quick-item { padding: 12px 8px; min-height: 60px; }
+            .quick-item .name { font-size: 0.8rem; }
+            .quick-item .desc { font-size: 0.6rem; }
+            .cats-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .cat-btn { padding: 10px 6px; font-size: 0.75rem; min-height: 44px; }
+            .result-item { flex-wrap: wrap; gap: 8px; }
+            .result-link { width: 100%; text-align: center; }
+        }
+        @media (max-width: 400px) { 
+            .logo { font-size: 1.5rem; }
+            .quick-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            .cats-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+        }
     </style>
 </head>
 <body>
@@ -51,7 +82,10 @@
     <div class="container">
         <div class="main-card">
             <div class="logo-section">
-                <div class="logo"><span class="logo-text">AI神器库</span></div>
+                <div class="logo">
+                    <div class="logo-icon">🤖</div>
+                    <span class="logo-text">AI神器库</span>
+                </div>
                 <div class="tagline">让每个普通人都能找到最适合自己的AI工具</div>
             </div>
             <div class="search-box">
@@ -59,7 +93,7 @@
                 <button class="search-btn" onclick="matchAI()">搜索</button>
             </div>
             <div id="quickSection">
-            <div class="quick-title">热门工具</div>
+            <div class="quick-title">🔥 热门工具</div>
             <div class="quick-grid">
                 <div class="quick-item" onclick="quickSearch('OpenClaw')"><span class="name">OpenClaw</span><span class="desc">AI助手</span></div>
                 <div class="quick-item" onclick="quickSearch('ChatGPT')"><span class="name">ChatGPT</span><span class="desc">最强对话AI</span></div>
@@ -74,7 +108,7 @@
             </div>
             </div>
             <div id="catsSection">
-            <div class="cats-title">选择场景</div>
+            <div class="cats-title">📂 选择场景</div>
             <div class="cats-grid">
                 <button class="cat-btn" data-value="AI聊天" onclick="selectCat(this)">AI聊天</button>
                 <button class="cat-btn" data-value="AI大模型" onclick="selectCat(this)">AI大模型</button>
