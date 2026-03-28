@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
         
-        /* Background */
         .bg {
             position: fixed;
             inset: 0;
@@ -56,7 +55,6 @@
             background-size: 40px 40px;
         }
         
-        /* Left Tech */
         .tech-left {
             position: fixed;
             left: 0;
@@ -134,7 +132,6 @@
             50% { transform: translateY(-10px); opacity: 0.5; }
         }
         
-        /* Right Tech */
         .tech-right {
             position: fixed;
             right: 0;
@@ -194,33 +191,6 @@
             50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 20px var(--cyan); }
         }
         
-        .wave {
-            position: absolute;
-            bottom: 20%;
-            right: 10%;
-            width: 100px;
-            height: 40px;
-            opacity: 0.3;
-        }
-        
-        .wave svg {
-            width: 100%;
-            height: 100%;
-        }
-        
-        .wave path {
-            fill: none;
-            stroke: var(--cyan);
-            stroke-width: 1;
-            animation: waveDraw 3s ease-in-out infinite;
-        }
-        
-        @keyframes waveDraw {
-            0%, 100% { stroke-dashoffset: 0; }
-            50% { stroke-dashoffset: 20; }
-        }
-        
-        /* Main Container */
         .container {
             position: relative;
             z-index: 2;
@@ -302,6 +272,16 @@
             animation-duration: 6s;
         }
         
+        @keyframes corePulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+        
+        @keyframes ringRotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
         .logo-text {
             background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--green) 100%);
             -webkit-background-clip: text;
@@ -362,22 +342,40 @@
             box-shadow: 0 8px 30px rgba(0,240,255,0.4);
         }
         
+        .quick-section {
+            margin-bottom: 20px;
+        }
+        
+        .quick-section.hidden {
+            display: none;
+        }
+        
+        .cats-section {
+            margin-bottom: 20px;
+        }
+        
+        .cats-section.hidden {
+            display: none;
+        }
+        
         .quick-title {
             font-size: 0.9rem;
             color: rgba(255,255,255,0.35);
             margin-bottom: 16px;
+            text-align: center;
         }
         
         .quick-grid {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 14px;
             margin-bottom: 28px;
-            flex-wrap: wrap;
         }
         
         .quick-item {
-            display: inline-flex;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 16px 32px;
@@ -386,6 +384,7 @@
             border-radius: 14px;
             cursor: pointer;
             transition: all 0.2s;
+            min-width: 100px;
         }
         
         .quick-item:hover {
@@ -394,15 +393,23 @@
             transform: translateY(-3px);
         }
         
-        .quick-item span {
+        .quick-item .q-name {
             font-size: 1rem;
-            color: rgba(255,255,255,0.85);
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .quick-item .q-desc {
+            font-size: 0.7rem;
+            color: rgba(0,240,255,0.8);
+            margin-top: 4px;
         }
         
         .cats-title {
             font-size: 0.9rem;
             color: rgba(255,255,255,0.35);
             margin-bottom: 16px;
+            text-align: center;
         }
         
         .cats-grid {
@@ -436,12 +443,6 @@
             color: white;
         }
         
-        .cat-btn:hover {
-            background: rgba(0,240,255,0.12);
-            border-color: rgba(0,240,255,0.4);
-            color: white;
-        }
-        
         .cat-btn.active {
             background: linear-gradient(135deg, rgba(0,240,255,0.25), rgba(0,255,136,0.15));
             border-color: var(--cyan);
@@ -452,7 +453,7 @@
             display: none;
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         
         .results.show {
@@ -502,7 +503,7 @@
         
         .result-item:hover {
             background: rgba(0,240,255,0.06);
-            border-color: rgba(0,240,255,0.2);
+            border-color: rgba(0,240,255,0.15);
         }
         
         .result-info {
@@ -557,36 +558,19 @@
         @media (max-width: 768px) {
             .tech-left, .tech-right { display: none; }
             .container { padding: 20px 15px; }
-            .main-card { 
-                padding: 20px 15px; 
-                max-width: 100%; 
-            }
-            .logo { 
-                font-size: 2rem; 
-                gap: 8px;
-            }
+            .main-card { padding: 20px 15px; max-width: 100%; }
+            .logo { font-size: 2rem; gap: 8px; }
             .logo-icon { width: 36px; height: 36px; }
             .logo-icon .core { width: 18px; height: 18px; }
             .logo-icon .ring:nth-child(2) { width: 26px; height: 26px; margin: -13px 0 0 -13px; }
             .logo-icon .ring:nth-child(3) { width: 36px; height: 36px; margin: -18px 0 0 -18px; }
-            .search-box {
-                flex-direction: column;
-                gap: 10px;
-                max-width: 100%;
-            }
+            .search-box { flex-direction: column; gap: 10px; max-width: 100%; }
             .search-btn { width: 100%; }
-            .quick-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-            }
-            .quick-item { padding: 12px 8px; }
-            .quick-item span { font-size: 0.8rem; }
-            .cats-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-                max-width: 100%;
-            }
+            .quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .quick-item { padding: 12px 8px; min-width: auto; }
+            .quick-item .q-name { font-size: 0.8rem; }
+            .quick-item .q-desc { font-size: 0.6rem; }
+            .cats-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 100%; }
             .cat-btn { padding: 10px 6px; font-size: 0.75rem; }
             .result-item { flex-wrap: wrap; gap: 8px; }
             .result-link { width: 100%; text-align: center; }
@@ -633,11 +617,6 @@
         <div class="pulse-dot"></div>
         <div class="pulse-dot"></div>
         <div class="pulse-dot"></div>
-        <div class="wave">
-            <svg viewBox="0 0 100 40">
-                <path d="M0,20 Q25,0 50,20 T100,20" stroke-dasharray="5,5"/>
-            </svg>
-        </div>
     </div>
     
     <div class="container">
@@ -651,7 +630,7 @@
                     </div>
                     <span class="logo-text">AI神器库</span>
                 </div>
-                <div class="tagline" style="color: #00f0ff; font-weight: 600; text-shadow: 0 0 20px rgba(0,240,255,0.5);">让每个普通人都能找到最适合自己的AI工具</div>
+                <div class="tagline">让每个普通人都能找到最适合自己的AI</div>
             </div>
             
             <div class="search-box">
@@ -659,57 +638,51 @@
                 <button class="search-btn" onclick="matchAI()">搜索</button>
             </div>
             
-            <div id="quickSection">
+            <div id="quickSection" class="quick-section">
             <div class="quick-title">热门工具</div>
             <div class="quick-grid">
-                <div class="quick-item" onclick="quickSearch('OpenClaw')">
-                    <span>OpenClaw</span>
-                </div>
                 <div class="quick-item" onclick="quickSearch('ChatGPT')">
-                    <span>ChatGPT</span>
-                </div>
-                <div class="quick-item" onclick="quickSearch('Claude')">
-                    <span>Claude</span>
+                    <span class="q-name">ChatGPT</span>
+                    <span class="q-desc">最强对话AI</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Midjourney')">
-                    <span>Midjourney</span>
+                    <span class="q-name">Midjourney</span>
+                    <span class="q-desc">AI绘图顶流</span>
+                </div>
+                <div class="quick-item" onclick="quickSearch('Claude')">
+                    <span class="q-name">Claude</span>
+                    <span class="q-desc">长文本之王</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Kimi')">
-                    <span>Kimi</span>
+                    <span class="q-name">Kimi</span>
+                    <span class="q-desc">200万字无损</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Cursor')">
-                    <span>Cursor</span>
-                </div>
-                <div class="quick-item" onclick="quickSearch('通义千问')">
-                    <span>通义千问</span>
-                </div>
-                <div class="quick-item" onclick="quickSearch('腾讯元宝')">
-                    <span>腾讯元宝</span>
-                </div>
-                <div class="quick-item" onclick="quickSearch('Accio')">
-                    <span>Accio</span>
+                    <span class="q-name">Cursor</span>
+                    <span class="q-desc">编程神器</span>
                 </div>
                 <div class="quick-item" onclick="quickSearch('Gamma')">
-                    <span>Gamma</span>
+                    <span class="q-name">Gamma</span>
+                    <span class="q-desc">AI生成PPT</span>
                 </div>
             </div>
             </div>
             
-            <div id="catsSection">
+            <div id="catsSection" class="cats-section">
             <div class="cats-title">选择场景</div>
             <div class="cats-grid">
                 <button class="cat-btn" data-value="AI聊天" onclick="selectCat(this)">AI聊天</button>
-                <button class="cat-btn" data-value="AI大模型" onclick="selectCat(this)">AI大模型</button>
-                <button class="cat-btn" data-value="AI编程" onclick="selectCat(this)">AI编程</button>
                 <button class="cat-btn" data-value="图像生成" onclick="selectCat(this)">AI绘图</button>
                 <button class="cat-btn" data-value="视频生成" onclick="selectCat(this)">AI视频</button>
+                <button class="cat-btn" data-value="编程开发" onclick="selectCat(this)">AI编程</button>
                 <button class="cat-btn" data-value="写作创作" onclick="selectCat(this)">AI写作</button>
                 <button class="cat-btn" data-value="语音合成" onclick="selectCat(this)">AI语音</button>
                 <button class="cat-btn" data-value="数据分析" onclick="selectCat(this)">数据分析</button>
                 <button class="cat-btn" data-value="AI设计" onclick="selectCat(this)">AI设计</button>
                 <button class="cat-btn" data-value="AI营销" onclick="selectCat(this)">AI营销</button>
                 <button class="cat-btn" data-value="翻译语言" onclick="selectCat(this)">翻译</button>
-                <button class="cat-btn" data-value="电商开店" onclick="selectCat(this)">电商开店</button>
+                <button class="cat-btn" data-value="短视频" onclick="selectCat(this)">短视频</button>
+                <button class="cat-btn" data-value="电商运营" onclick="selectCat(this)">电商</button>
             </div>
             </div>
             
@@ -733,58 +706,7 @@ var aiTools = {
         {name:"ChatGPT",price:"免费/付费",tag:"全球第一",link:"https://chat.openai.com"},
         {name:"Claude",price:"免费/付费",tag:"长文本之王",link:"https://claude.ai"},
         {name:"文心一言",price:"免费",tag:"国产首选",link:"https://yiyan.baidu.com"},
-        {name:"Kimi",price:"免费",tag:"长文本神器",link:"https://kimi.moonshot.cn"},
-        {name:"OpenClaw龙虾",price:"免费",tag:"AI助手",link:"https://openclaw.ai"},
-        {name:"腾讯元宝",price:"免费",tag:"腾讯AI",link:"https://yuanbao.tencent.com"},
-        {name:"通义千问",price:"免费",tag:"阿里AI",link:"https://tongyi.aliyun.com"},
-        {name:"豆包",price:"免费",tag:"字节AI",link:"https://www.doubao.com"},
-        {name:"讯飞星火",price:"免费",tag:"科大讯飞",link:"https://xinghuo.xfyun.cn"},
-        {name:"智谱清言",price:"免费",tag:"国产",link:"https://www.zhipuai.cn"},
-        {name:"混元",price:"免费",tag:"腾讯AI",link:"https://hunyuan.tencent.com"}
-    ],
-    "AI大模型": [
-        {name:"OpenClaw龙虾",price:"免费",tag:"AI助手",link:"https://openclaw.ai"},
-        {name:"腾讯元宝",price:"免费",tag:"腾讯AI",link:"https://yuanbao.tencent.com"},
-        {name:"通义千问",price:"免费",tag:"阿里AI",link:"https://tongyi.aliyun.com"},
-        {name:"豆包",price:"免费",tag:"字节AI",link:"https://www.doubao.com"},
-        {name:"讯飞星火",price:"免费",tag:"科大讯飞",link:"https://xinghuo.xfyun.cn"},
-        {name:"智谱清言",price:"免费",tag:"国产",link:"https://www.zhipuai.cn"},
-        {name:"混元",price:"免费",tag:"腾讯AI",link:"https://hunyuan.tencent.com"},
-        {name:"百川智能",price:"免费",tag:"国产",link:"https://www.baichuan-ai.com"},
-        {name:"Minimax",price:"免费",tag:"国产",link:"https://www.minimax.io"},
-        {name:"阶跃星辰",price:"免费",tag:"国产",link:"https://www.stepfun.com"}
-    ],
-    "AI编程": [
-        {name:"Cursor",price:"免费",tag:"编程神器",link:"https://cursor.sh"},
-        {name:"GitHub Copilot",price:"$10/月",tag:"老牌",link:"https://github.com/features/copilot"},
-        {name:"通义灵码",price:"免费",tag:"阿里免费",link:"https://lingma.aliyun.com"},
-        {name:"腾讯云AI代码",price:"免费",tag:"腾讯免费",link:"https://cloud.tencent.com/product/tcci"},
-        {name:"文心快码",price:"免费",tag:"百度免费",link:"https://qianfan.cloud.baidu.com/"},
-        {name:"讯飞AI助手",price:"免费",tag:"讯飞",link:"https://xinghuo.xfyun.cn"}
-    ],
-    "AI绘图": [
-        {name:"Midjourney",price:"$10/月",tag:"艺术最强",link:"https://midjourney.com"},
-        {name:"Stable Diffusion",price:"免费",tag:"开源免费",link:"https://stability.ai"},
-        {name:"通义万相",price:"免费",tag:"阿里免费",link:"https://wanxiang.aliyun.com"},
-        {name:"文心一格",price:"免费",tag:"百度免费",link:"https://yige.baidu.com"},
-        {name:"秒画",price:"免费",tag:"商汤",link:"https://miaohua.sensetime.com"},
-        {name:"堆糖AI",price:"免费",tag:"国产",link:"https://www.duitang.com"}
-    ],
-    "AI视频": [
-        {name:"Runway",price:"付费",tag:"视频最强",link:"https://runwayml.com"},
-        {name:"Pika",price:"免费",tag:"新秀",link:"https://pika.art"},
-        {name:"HeyGen",price:"免费",tag:"数字人",link:"https://heygen.com"},
-        {name:"腾讯智影",price:"免费",tag:"腾讯免费",link:"https://zenvideo.qq.com"},
-        {name:"剪映",price:"免费",tag:"国产",link:"https://www.capcut.cn"},
-        {name:"阿里通义",price:"免费",tag:"阿里",link:"https://tongyi.aliyun.com"}
-    ],
-    "电商开店": [
-        {name:"Accio",price:"免费",tag:"Shopify官方",link:"https://www.accio.com/work"},
-        {name:"Shopify",price:"付费",tag:"全球第一",link:"https://shopify.com"},
-        {name:"有赞",price:"付费",tag:"国产",link:"https://www.youzan.com"},
-        {name:"微盟",price:"付费",tag:"国产",link:"https://www.weimob.com"},
-        {name:"阿里国际站",price:"付费",tag:"阿里",link:"https://www.alibaba.com"},
-        {name:"京东开店",price:"免费",link:"https://shop.jd.com"}
+        {name:"Kimi",price:"免费",tag:"长文本神器",link:"https://kimi.moonshot.cn"}
     ],
     "图像生成": [
         {name:"Midjourney",price:"$10/月",tag:"艺术最强",link:"https://midjourney.com"},
@@ -844,20 +766,19 @@ var aiTools = {
 
 var keywords = {
     "chatgpt":"AI聊天","gpt":"AI聊天","聊天":"AI聊天","问答":"AI聊天","ai":"AI聊天","对话":"AI聊天",
-    "openclaw":"AI聊天","龙虾":"AI聊天","claude":"AI聊天","kimi":"AI聊天","文心一言":"AI聊天","豆包":"AI聊天",
-    "通义千问":"AI聊天","元宝":"AI聊天","腾讯":"AI聊天","讯飞":"AI聊天","智谱":"AI聊天","混元":"AI聊天",
-    "图片":"AI绘图","画图":"AI绘图","midjourney":"AI绘图","mj":"AI绘图","dalle":"AI绘图","绘图":"AI绘图",
-    "stable diffusion":"AI绘图","sd":"AI绘图","通义万相":"AI绘图","文心一格":"AI绘图","秒画":"AI绘图",
-    "视频":"AI视频","剪辑":"AI视频","runway":"AI视频","pika":"AI视频","sora":"AI视频","智影":"AI视频","剪映":"AI视频",
-    "编程":"AI编程","代码":"AI编程","写代码":"AI编程","copilot":"AI编程","cursor":"AI编程","通义灵码":"AI编程",
-    "腾讯云AI":"AI编程","文心快码":"AI编程",
+    "图片":"图像生成","画图":"图像生成","midjourney":"图像生成","mj":"图像生成","dalle":"图像生成","绘图":"图像生成",
+    "视频":"视频生成","剪辑":"视频生成","做视频":"视频生成","runway":"视频生成","pika":"视频生成","sora":"视频生成",
+    "编程":"编程开发","代码":"编程开发","写代码":"编程开发","copilot":"编程开发","cursor":"编程开发",
     "写作":"写作创作","文案":"写作创作","润色":"写作创作",
     "语音":"语音合成","配音":"语音合成","tts":"语音合成",
     "分析":"数据分析","论文":"数据分析","pdf":"数据分析",
     "设计":"AI设计","海报":"AI设计","PPT":"AI设计","logo":"AI设计",
     "营销":"AI营销","推广":"AI营销","seo":"AI营销",
     "翻译":"翻译语言","英语":"翻译语言",
-    "电商":"电商开店","开店":"电商开店","shopify":"电商开店","accio":"电商开店","有赞":"电商开店","微盟":"电商开店"
+    "学习":"教育学习","教育":"教育学习","辅导":"教育学习",
+    "短视频":"短视频","抖音":"短视频","快手":"短视频",
+    "ppt":"PPT制作","演示":"PPT制作","做PPT":"PPT制作",
+    "电商":"电商运营","淘宝":"电商运营","开店":"电商运营"
 };
 
 var selectedCategory = "";
@@ -885,13 +806,11 @@ function matchAI() {
     
     if (!userInput && !selectedCategory) {
         results.classList.remove('show');
-        // 恢复显示热门工具和选择场景
         if(quickSection) quickSection.style.display = 'block';
         if(catsSection) catsSection.style.display = 'block';
         return;
     }
     
-    // 隐藏热门工具和选择场景区域
     if(quickSection) quickSection.style.display = 'none';
     if(catsSection) catsSection.style.display = 'none';
     
