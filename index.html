@@ -1,281 +1,167 @@
+```html
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang=“zh-CN”>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI神器库</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --cyan: #00f0ff; --green: #00ff88; --dark: #050508; }
-        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark); color: white; min-height: 100vh; }
-        
-        /* 主体区域居中 */
-        .wrap { width: 100%; max-width: 1100px; margin: 0 auto; padding: 80px 40px 60px; }
-        
-        .logo-section { text-align: center; margin-bottom: 40px; }
-        .logo { display: inline-flex; align-items: center; gap: 14px; font-size: 3rem; font-weight: 700; }
-        .logo-icon { width: 60px; height: 60px; background: linear-gradient(135deg, var(--cyan), var(--green)); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 1.8rem; box-shadow: 0 0 25px var(--cyan); }
-        .logo-text { background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .tagline { font-size: 1.1rem; color: #00f0ff; font-weight: 600; margin-top: 10px; text-shadow: 0 0 20px rgba(0,240,255,0.5); }
-        
-        /* 搜索框 - 百度风格 */
-        .search-wrap { margin-bottom: 32px; }
-        .search-box { display: flex; width: 100%; height: 56px; border-radius: 28px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.4); border: 1px solid #3d4654; }
-        .search-input { flex: 1; background: #fff; border: none; padding: 0 24px; font-size: 1.2rem; color: #333; line-height: 56px; }
-        .search-input::placeholder { color: #999; }
-        .search-input:focus { outline: none; }
-        .search-btn { width: 120px; background: linear-gradient(135deg, #1e90ff, #00d4ff); border: none; font-size: 1.2rem; font-weight: 600; color: #fff; cursor: pointer; }
-        .search-btn:hover { background: linear-gradient(135deg, #1c86ee, #00c4ee); }
-        
-        /* 热门工具 */
-        .section { margin-bottom: 24px; }
-        .section-title { font-size: 1rem; color: #888; margin-bottom: 14px; }
-        
-        .quick-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
-        .quick-item { display: inline-flex; align-items: center; padding: 10px 18px; background: #1a1d24; border: 1px solid #2d323d; border-radius: 24px; cursor: pointer; transition: all 0.2s; min-width: 100px; justify-content: center; }
-        .quick-item:hover { background: #2a2f3a; border-color: #00d4ff; }
-        .quick-item .name { font-size: 0.9rem; color: #fff; font-weight: 500; white-space: nowrap; }
-        .quick-item .desc { font-size: 0.75rem; color: #888; margin-left: 6px; white-space: nowrap; }
-        
-        /* 选择场景 */
-        .cats-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
-        .cat-btn { display: inline-flex; align-items: center; padding: 10px 18px; background: #1a1d24; border: 1px solid #2d323d; border-radius: 24px; color: #aaa; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; min-width: 90px; justify-content: center; }
-        .cat-btn:hover { background: #2a2f3a; border-color: #00d4ff; color: #fff; }
-        .cat-btn.active { background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(0,255,136,0.1)); border-color: #00d4ff; color: #00d4ff; }
-        
-        /* 结果区域 */
-        .results { display: none; margin-top: 24px; padding-top: 24px; border-top: 1px solid #2d323d; }
-        .results.show { display: block; }
-        .result-list { display: flex; flex-direction: column; gap: 14px; }
-        .result-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: #1a1d24; border-radius: 12px; border: 1px solid #2d323d; }
-        .result-info { display: flex; align-items: center; gap: 14px; }
-        .result-name { font-size: 1.05rem; font-weight: 600; color: #00d4ff; }
-        .result-tag { font-size: 0.6rem; padding: 2px 8px; background: linear-gradient(135deg, #1e90ff, #00d4ff); color: #fff; border-radius: 8px; font-weight: 600; }
-        .result-price { font-size: 0.85rem; color: #00ff88; margin-right: 14px; }
-        .result-link { padding: 8px 20px; background: linear-gradient(135deg, #1e90ff, #00d4ff); color: #fff; text-decoration: none; border-radius: 8px; font-size: 0.85rem; font-weight: 600; }
-        
-        .footer { text-align: center; color: #444; font-size: 0.75rem; margin-top: 30px; }
-        
-        /* 手机端适配 */
-        @media (max-width: 768px) {
-            .wrap { padding: 40px 12px 30px; }
-            .logo { font-size: 1.9rem; gap: 10px; }
-            .logo-icon { width: 38px; height: 38px; font-size: 1.2rem; }
-            .tagline { font-size: 0.8rem; }
-            .search-box { height: 44px; border-radius: 22px; }
-            .search-input { font-size: 1rem; padding: 0 16px; }
-            .search-btn { width: 70px; font-size: 0.95rem; }
-            
-            .quick-grid { gap: 8px; margin-bottom: 16px; }
-            .quick-item { padding: 6px 10px; min-width: auto; border-radius: 16px; }
-            .quick-item .name { font-size: 0.7rem; }
-            .quick-item .desc { font-size: 0.55rem; display: none; }
-            
-            .cats-grid { gap: 8px; margin-bottom: 12px; }
-            .cat-btn { padding: 6px 10px; font-size: 0.7rem; min-width: auto; border-radius: 14px; }
-            
-            .result-item { padding: 12px 14px; }
-            .result-name { font-size: 0.9rem; }
-            .result-link { padding: 5px 12px; font-size: 0.75rem; }
-        }
-    </style>
+<meta charset=“UTF-8”>
+<meta name=“viewport” content=“width=device-width, initial-scale=1.0”>
+<title>AI神器库 - 为创业者量身定制的AI工具库</title>
+<meta name=“description” content=“精选200+AI工具，帮助创业者做内容赚钱。包含ChatGPT、Midjourney、Runway等最强AI工具。”>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{–cyan:#00f0ff;–green:#00ff88;–dark:#050508;}
+body{font-family:‘Noto Sans SC’,sans-serif;background:var(–dark);color:white;min-height:100vh;}
+.wrap{width:100%;max-width:1100px;margin:0 auto;padding:80px 40px 60px;}
+.hero{text-align:center;margin-bottom:50px;}
+.hero h1{font-size:2.8rem;margin-bottom:15px;background:linear-gradient(135deg,#fff 0%,var(–cyan) 50%,var(–green) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:1.2rem;color:#888;margin-bottom:8px;}
+.hero .highlight{color:var(–cyan);font-weight:600;}
+.stats{display:flex;justify-content:center;gap:50px;margin-bottom:40px;flex-wrap:wrap;}
+.stat-item{text-align:center;}
+.stat-num{font-size:2.5rem;font-weight:700;color:var(–cyan);}
+.stat-label{font-size:0.9rem;color:#888;margin-top:5px;}
+.search-wrap{margin-bottom:40px;}
+.search-box{display:flex;width:100%;height:56px;border-radius:28px;overflow:hidden;box-shadow:0 4px 20px rgba(0,240,255,0.2);border:2px solid var(–cyan);}
+.search-input{flex:1;background:rgba(255,255,255,0.95);border:none;padding:0 24px;font-size:1.1rem;color:#333;line-height:56px;}
+.search-input::placeholder{color:#999;}
+.search-input:focus{outline:none;}
+.search-btn{width:120px;background:linear-gradient(135deg,var(–cyan),var(–green));border:none;font-size:1.1rem;font-weight:600;color:#000;cursor:pointer;}
+.search-btn:hover{opacity:0.9;}
+.scenes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:40px;}
+.scene-card{background:linear-gradient(135deg,rgba(0,240,255,0.1),rgba(0,255,136,0.05));border:1px solid rgba(0,240,255,0.3);border-radius:16px;padding:24px 20px;text-align:center;cursor:pointer;transition:all 0.3s;}
+.scene-card:hover{transform:translateY(-5px);border-color:var(–cyan);box-shadow:0 10px 30px rgba(0,240,255,0.2);}
+.scene-icon{font-size:2.5rem;margin-bottom:12px;}
+.scene-title{font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:8px;}
+.scene-desc{font-size:0.85rem;color:#888;}
+.section-title{font-size:1rem;color:#888;margin-bottom:14px;text-align:center;}
+.cats-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:30px;}
+.cat-btn{display:inline-flex;align-items:center;padding:10px 20px;background:rgba(255,255,255,0.05);border:1px solid #2d323d;border-radius:24px;color:#aaa;font-size:0.9rem;cursor:pointer;transition:all 0.2s;}
+.cat-btn:hover{background:rgba(0,240,255,0.1);border-color:var(–cyan);color:#fff;}
+.cat-btn.active{background:linear-gradient(135deg,rgba(0,240,255,0.2),rgba(0,255,136,0.1));border-color:var(–cyan);color:var(–cyan);}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+.tool-card{background:rgba(255,255,255,0.03);border:1px solid #2d323d;border-radius:16px;padding:20px;transition:all 0.3s;}
+.tool-card:hover{transform:translateY(-3px);border-color:var(–cyan);box-shadow:0 8px 25px rgba(0,240,255,0.15);}
+.tool-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+.tool-name{font-size:1.1rem;font-weight:600;color:var(–cyan);}
+.tool-price{font-size:0.8rem;color:var(–green);background:rgba(0,255,136,0.1);padding:3px 10px;border-radius:12px;}
+.tool-tag{font-size:0.7rem;color:#fff;background:linear-gradient(135deg,var(–cyan),var(–green));padding:3px 10px;border-radius:12px;font-weight:600;}
+.tool-desc{font-size:0.9rem;color:#aaa;line-height:1.5;margin-bottom:15px;}
+.tool-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.tool-link{padding:8px 20px;background:linear-gradient(135deg,var(–cyan),var(–green));color:#000;text-decoration:none;border-radius:8px;font-size:0.85rem;font-weight:600;transition:opacity 0.2s;}
+.tool-link:hover{opacity:0.85;}
+.footer{text-align:center;color:#444;font-size:0.85rem;margin-top:60px;padding-top:30px;border-top:1px solid #1a1d24;}
+@media(max-width:768px){
+.wrap{padding:40px 12px 30px;}
+.hero h1{font-size:1.8rem;}
+.hero p{font-size:0.95rem;}
+.stats{gap:25px;}
+.stat-num{font-size:1.8rem;}
+.search-box{height:48px;border-radius:24px;}
+.search-input{font-size:1rem;padding:0 16px;}
+.search-btn{width:80px;font-size:1rem;}
+.scenes{grid-template-columns:repeat(2,1fr);gap:10px;}
+.scene-card{padding:16px 12px;}
+.scene-icon{font-size:1.8rem;}
+.scene-title{font-size:0.95rem;}
+.scene-desc{font-size:0.75rem;}
+.tools-grid{grid-template-columns:1fr;}
+}
+</style>
 </head>
 <body>
-    <div class="wrap">
-        <div class="logo-section">
-            <div class="logo">
-                <div class="logo-icon">🤖</div>
-                <span class="logo-text">AI神器库</span>
-            </div>
-            <div class="tagline">让每个普通人都能找到最适合自己的AI工具</div>
-        </div>
-        
-        <div class="search-wrap">
-            <div class="search-box">
-                <input type="text" class="search-input" id="userInput" placeholder="输入需求：写代码、生成图片、制作视频..." onkeypress="if(event.key==='Enter')matchAI()">
-                <button class="search-btn" onclick="matchAI()">搜索</button>
-            </div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">热门工具</div>
-            <div class="quick-grid" id="quickSection">
-                <div class="quick-item" onclick="quickSearch('OpenClaw')"><span class="name">OpenClaw</span><span class="desc">AI助手</span></div>
-                <div class="quick-item" onclick="quickSearch('ChatGPT')"><span class="name">ChatGPT</span><span class="desc">最强对话AI</span></div>
-                <div class="quick-item" onclick="quickSearch('Claude')"><span class="name">Claude</span><span class="desc">长文本之王</span></div>
-                <div class="quick-item" onclick="quickSearch('Midjourney')"><span class="name">Midjourney</span><span class="desc">AI绘图顶流</span></div>
-                <div class="quick-item" onclick="quickSearch('Kimi')"><span class="name">Kimi</span><span class="desc">200万字无损</span></div>
-                <div class="quick-item" onclick="quickSearch('Cursor')"><span class="name">Cursor</span><span class="desc">编程神器</span></div>
-                <div class="quick-item" onclick="quickSearch('通义千问')"><span class="name">通义千问</span><span class="desc">阿里AI</span></div>
-                <div class="quick-item" onclick="quickSearch('腾讯元宝')"><span class="name">腾讯元宝</span><span class="desc">腾讯AI</span></div>
-                <div class="quick-item" onclick="quickSearch('Accio')"><span class="name">Accio</span><span class="desc">Shopify</span></div>
-                <div class="quick-item" onclick="quickSearch('Gamma')"><span class="name">Gamma</span><span class="desc">AI生成PPT</span></div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">选择场景</div>
-            <div class="cats-grid" id="catsSection">
-                <button class="cat-btn" data-value="AI聊天" onclick="selectCat(this)">AI聊天</button>
-                <button class="cat-btn" data-value="AI大模型" onclick="selectCat(this)">AI大模型</button>
-                <button class="cat-btn" data-value="AI编程" onclick="selectCat(this)">AI编程</button>
-                <button class="cat-btn" data-value="AI绘图" onclick="selectCat(this)">AI绘图</button>
-                <button class="cat-btn" data-value="AI视频" onclick="selectCat(this)">AI视频</button>
-                <button class="cat-btn" data-value="AI写作" onclick="selectCat(this)">AI写作</button>
-                <button class="cat-btn" data-value="AI语音" onclick="selectCat(this)">AI语音</button>
-                <button class="cat-btn" data-value="数据分析" onclick="selectCat(this)">数据分析</button>
-                <button class="cat-btn" data-value="AI设计" onclick="selectCat(this)">AI设计</button>
-                <button class="cat-btn" data-value="AI营销" onclick="selectCat(this)">AI营销</button>
-                <button class="cat-btn" data-value="翻译" onclick="selectCat(this)">翻译</button>
-                <button class="cat-btn" data-value="AI电商" onclick="selectCat(this)">AI电商</button>
-            </div>
-        </div>
-        
-        <div class="results" id="results">
-            <div class="result-list" id="resultList"></div>
-        </div>
-        
-        <div class="footer">精选全球顶级AI工具  助力工作生活效率翻倍</div>
-    </div>
-    
-    <script>
-var aiTools = {
-    "AI聊天": [
-        {name:"ChatGPT",price:"免费/付费",tag:"全球第一",link:"https://chat.openai.com"},
-        {name:"Claude",price:"免费/付费",tag:"长文本之王",link:"https://claude.ai"},
-        {name:"文心一言",price:"免费",tag:"国产首选",link:"https://yiyan.baidu.com"},
-        {name:"Kimi",price:"免费",tag:"长文本神器",link:"https://kimi.moonshot.cn"},
-        {name:"OpenClaw",price:"免费",tag:"AI助手",link:"https://openclaw.ai"},
-        {name:"腾讯元宝",price:"免费",tag:"腾讯AI",link:"https://yuanbao.tencent.com"},
-        {name:"通义千问",price:"免费",tag:"阿里AI",link:"https://tongyi.aliyun.com"},
-        {name:"豆包",price:"免费",tag:"字节AI",link:"https://www.doubao.com"},
-        {name:"讯飞星火",price:"免费",tag:"科大讯飞",link:"https://xinghuo.xfyun.cn"},
-        {name:"智谱清言",price:"免费",tag:"国产",link:"https://www.zhipuai.cn"}
-    ],
-    "AI大模型": [
-        {name:"OpenClaw",price:"免费",tag:"AI助手",link:"https://openclaw.ai"},
-        {name:"腾讯元宝",price:"免费",tag:"腾讯AI",link:"https://yuanbao.tencent.com"},
-        {name:"通义千问",price:"免费",tag:"阿里AI",link:"https://tongyi.aliyun.com"},
-        {name:"豆包",price:"免费",tag:"字节AI",link:"https://www.doubao.com"},
-        {name:"讯飞星火",price:"免费",tag:"科大讯飞",link:"https://xinghuo.xfyun.cn"},
-        {name:"智谱清言",price:"免费",tag:"国产",link:"https://www.zhipuai.cn"},
-        {name:"百川智能",price:"免费",tag:"国产",link:"https://www.baichuan-ai.com"},
-        {name:"Minimax",price:"免费",tag:"国产",link:"https://www.minimax.io"},
-        {name:"阶跃星辰",price:"免费",tag:"国产",link:"https://www.stepfun.com"}
-    ],
-    "AI编程": [
-        {name:"Cursor",price:"免费",tag:"编程神器",link:"https://cursor.sh"},
-        {name:"Copilot",price:"$10/月",tag:"老牌",link:"https://github.com/features/copilot"},
-        {name:"通义灵码",price:"免费",tag:"阿里免费",link:"https://lingma.aliyun.com"},
-        {name:"腾讯云AI代码",price:"免费",tag:"腾讯免费",link:"https://cloud.tencent.com/product/tcci"},
-        {name:"文心快码",price:"免费",tag:"百度免费",link:"https://qianfan.cloud.baidu.com/"}
-    ],
-    "AI绘图": [
-        {name:"Midjourney",price:"$10/月",tag:"艺术最强",link:"https://midjourney.com"},
-        {name:"Stable Diffusion",price:"免费",tag:"开源免费",link:"https://stability.ai"},
-        {name:"通义万相",price:"免费",tag:"阿里免费",link:"https://wanxiang.aliyun.com"},
-        {name:"文心一格",price:"免费",tag:"百度免费",link:"https://yige.baidu.com"},
-        {name:"秒画",price:"免费",tag:"商汤",link:"https://miaohua.sensetime.com"}
-    ],
-    "AI视频": [
-        {name:"Runway",price:"付费",tag:"视频最强",link:"https://runwayml.com"},
-        {name:"Pika",price:"免费",tag:"新秀",link:"https://pika.art"},
-        {name:"HeyGen",price:"免费",tag:"数字人",link:"https://heygen.com"},
-        {name:"腾讯智影",price:"免费",tag:"腾讯免费",link:"https://zenvideo.qq.com"},
-        {name:"剪映",price:"免费",tag:"国产",link:"https://www.capcut.cn"}
-    ],
-    "AI写作": [
-        {name:"Notion AI",price:"付费",tag:"文档神器",link:"https://notion.so"},
-        {name:"秘塔写作",price:"免费",tag:"国产",link:"https://xiezuocat.com"}
-    ],
-    "AI语音": [
-        {name:"ElevenLabs",price:"免费",tag:"音质最强",link:"https://elevenlabs.io"},
-        {name:"讯飞语音",price:"免费",tag:"国产",link:"https://www.xfyun.cn"}
-    ],
-    "数据分析": [
-        {name:"ChatPDF",price:"免费",tag:"PDF分析",link:"https://chatpdf.com"},
-        {name:"Kimi",price:"免费",tag:"免费",link:"https://kimi.moonshot.cn"}
-    ],
-    "AI设计": [
-        {name:"Canva AI",price:"免费",tag:"设计入门",link:"https://canva.com"},
-        {name:"稿定AI",price:"免费",tag:"国产",link:"https://gaoding.com"}
-    ],
-    "AI营销": [
-        {name:"秘塔AI",price:"免费",tag:"国产",link:"https://xiezuocat.com"}
-    ],
-    "翻译": [
-        {name:"DeepL",price:"免费",tag:"翻译最强",link:"https://www.deepl.com"},
-        {name:"腾讯翻译",price:"免费",tag:"免费",link:"https://fanyi.qq.com"}
-    ],
-    "AI电商": [
-        {name:"Shopify",price:"付费",tag:"全球第一",link:"https://shopify.com"},
-        {name:"有赞",price:"付费",tag:"国产",link:"https://www.youzan.com"},
-        {name:"微盟",price:"付费",tag:"国产",link:"https://www.weimob.com"}
-    ]
-};
-
-var keywords = {
-    "chatgpt":"AI聊天","gpt":"AI聊天","聊天":"AI聊天","ai":"AI聊天","openclaw":"AI聊天","claude":"AI聊天","kimi":"AI聊天","文心一言":"AI聊天","豆包":"AI聊天","通义千问":"AI聊天","元宝":"AI聊天","腾讯":"AI聊天","讯飞":"AI聊天","智谱":"AI聊天",
-    "图片":"AI绘图","画图":"AI绘图","midjourney":"AI绘图","mj":"AI绘图","dalle":"AI绘图","绘图":"AI绘图","stable diffusion":"AI绘图","sd":"AI绘图","通义万相":"AI绘图","文心一格":"AI绘图","秒画":"AI绘图",
-    "视频":"AI视频","剪辑":"AI视频","runway":"AI视频","pika":"AI视频","sora":"AI视频","智影":"AI视频","剪映":"AI视频",
-    "编程":"AI编程","代码":"AI编程","copilot":"AI编程","cursor":"AI编程","通义灵码":"AI编程","文心快码":"AI编程",
-    "写作":"AI写作","文案":"AI写作","润色":"AI写作",
-    "语音":"AI语音","配音":"AI语音","tts":"AI语音",
-    "分析":"数据分析","pdf":"数据分析",
-    "设计":"AI设计","海报":"AI设计","PPT":"AI设计","logo":"AI设计",
-    "营销":"AI营销","推广":"AI营销",
-    "翻译":"翻译","英语":"翻译",
-    "电商":"AI电商","开店":"AI电商","shopify":"AI电商"
-};
-
-var selectedCategory = "";
-function selectCat(btn) {
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    selectedCategory = btn.getAttribute('data-value');
-    document.getElementById('userInput').value = selectedCategory;
-    matchAI();
-}
-function quickSearch(toolName) {
-    document.getElementById('userInput').value = toolName;
-    matchAI();
-}
-function matchAI() {
-    var userInput = document.getElementById('userInput').value.trim();
-    var results = document.getElementById('results');
-    var resultList = document.getElementById('resultList');
-    if (!userInput && !selectedCategory) {
-        results.classList.remove('show');
-        return;
-    }
-    var category = selectedCategory;
-    if (!category) {
-        var input = userInput.toLowerCase();
-        for (var key in keywords) {
-            if (input.indexOf(key) !== -1) {
-                category = keywords[key];
-                break;
-            }
-        }
-    }
-    if (!category) category = 'AI聊天';
-    var tools = aiTools[category] || aiTools['AI聊天'];
-    var html = '';
-    for (var t = 0; t < tools.length; t++) {
-        var tool = tools[t];
-        html += '<div class="result-item">';
-        html += '<div class="result-info">';
-        html += '<span class="result-name">' + tool.name + '</span>';
-        if (tool.tag) html += '<span class="result-tag">' + tool.tag + '</span>';
-        html += '</div>';
-        html += '<div style="display:flex;align-items:center;">';
-        html += '<span class="result-price">' + tool.price + '</span>';
-        if (tool.link) html += '<a href="' + tool.link + '" target="_blank" class="result-link">访问</a>';
-        html += '</div></div>';
-    }
-    resultList.innerHTML = html;
-    results.classList.add('show');
-}
-    </script>
-</body>
-</html>
+<div class=“wrap”>
+<div class=“hero”>
+<h1>🤖 AI神器库</h1>
+<p>为创业者量身定制的AI工具库</p>
+<p>精选 <span class=“highlight”>200+</span> 款AI工具，帮你 <span class=“highlight”>做内容赚钱</span></p>
+</div>
+<div class=“stats”>
+<div class=“stat-item”><div class=“stat-num”>200+</div><div class=“stat-label”>精选AI工具</div></div>
+<div class=“stat-item”><div class=“stat-num”>16</div><div class=“stat-label”>热门分类</div></div>
+<div class=“stat-item”><div class=“stat-num”>100%</div><div class=“stat-label”>免费/付费都有</div></div>
+</div>
+<div class=“scenes”>
+<div class=“scene-card” onclick=“quickSearch(‘文案创作’)”><div class=“scene-icon”>📝</div><div class=“scene-title”>内容创作</div><div class=“scene-desc”>写小红书、抖音、公众号文案</div></div>
+<div class=“scene-card” onclick=“quickSearch(‘视频制作’)”><div class=“scene-icon”>🎬</div><div class=“scene-title”>视频制作</div><div class=“scene-desc”>做短视频、剪辑、配音</div></div>
+<div class=“scene-card” onclick=“quickSearch(‘图片生成’)”><div class=“scene-icon”>🎨</div><div class=“scene-title”>图片设计</div><div class=“scene-desc”>生成配图、海报、产品图</div></div>
+<div class=“scene-card” onclick=“quickSearch(‘代码编程’)”><div class=“scene-icon”>💻</div><div class=“scene-title”>编程开发</div><div class=“scene-desc”>写代码，建网站、做应用</div></div>
+</div>
+<div class=“search-wrap”>
+<div class=“search-box”>
+<input type=“text” class=“search-input” id=“userInput” placeholder=“输入需求：写文案、做视频、生成图片…” onkeypress=“if(event.key===‘Enter’)matchAI()”>
+<button class=“search-btn” onclick=“matchAI()”>搜索</button>
+</div>
+</div>
+<div class=“section-title”>选择分类</div>
+<div class=“cats-grid” id=“catsSection”>
+<button class=“cat-btn” data-value=“文案创作” onclick=“selectCat(this)”>📝 文案创作</button>
+<button class=“cat-btn” data-value=“图片生成” onclick=“selectCat(this)”>🎨 图片生成</button>
+<button class=“cat-btn” data-value=“视频制作” onclick=“selectCat(this)”>🎬 视频制作</button>
+<button class=“cat-btn” data-value=“代码编程” onclick=“selectCat(this)”>💻 代码编程</button>
+<button class=“cat-btn” data-value=“搜索工具” onclick=“selectCat(this)”>🔍 搜索工具</button>
+<button class=“cat-btn” data-value=“数据分析” onclick=“selectCat(this)”>📊 数据分析</button>
+<button class=“cat-btn” data-value=“音乐生成” onclick=“selectCat(this)”>🎵 音乐生成</button>
+<button class=“cat-btn” data-value=“AI智能体” onclick=“selectCat(this)”>🤖 AI智能体</button>
+<button class=“cat-btn” data-value=“翻译” onclick=“selectCat(this)”>🌐 翻译</button>
+<button class=“cat-btn” data-value=“AI电商” onclick=“selectCat(this)”>🛒 AI电商</button>
+<button class=“cat-btn” data-value=“AI聊天” onclick=“selectCat(this)”>💬 AI聊天</button>
+<button class=“cat-btn” data-value=“AI大模型” onclick=“selectCat(this)”>🧠 AI大模型</button>
+<button class=“cat-btn” data-value=“AI写作” onclick=“selectCat(this)”>✍️ AI写作</button>
+<button class=“cat-btn” data-value=“AI语音” onclick=“selectCat(this)”>🎙️ AI语音</button>
+<button class=“cat-btn” data-value=“AI设计” onclick=“selectCat(this)”>🖼️ AI设计</button>
+<button class=“cat-btn” data-value=“AI营销” onclick=“selectCat(this)”>📢 AI营销</button>
+</div>
+<div class=“tools-grid” id=“toolsGrid”></div>
+<div class=“footer”>
+<p>精选全球顶级AI工具 | 助力创业者效率翻倍</p>
+</div>
+</div>
+<script>
+var aiTools={
+“文案创作”:[
+{name:“ChatGPT”,price:“免费/付费”,tag:“最强文案”,desc:“写小红书文案、抖音脚本、营销文案，月赚5000+”,link:“https://chat.openai.com”},
+{name:“Claude”,price:“免费/付费”,tag:“长文本之王”,desc:“写深度内容、小红书长文、公众号文章，质量最高”,link:“https://claude.ai”},
+{name:“Kimi”,price:“免费”,tag:“国产首选”,desc:“200万字无损，写长篇内容、电商文案、课程文案”,link:“https://kimi.moonshot.cn”},
+{name:“文心一言”,price:“免费”,tag:“国产”,desc:“百度AI，写营销文案、产品描述、广告文案”,link:“https://yiyan.baidu.com”},
+{name:“通义千问”,price:“免费”,tag:“阿里AI”,desc:“阿里AI，写电商文案、直播脚本、短视频文案”,link:“https://tongyi.aliyun.com”},
+{name:“腾讯元宝”,price:“免费”,tag:“腾讯AI”,desc:“腾讯AI，写微信文案、朋友圈文案、社群文案”,link:“https://yuanbao.tencent.com”},
+{name:“豆包”,price:“免费”,tag:“字节AI”,desc:“字节AI，写抖音文案、快手文案、视频脚本”,link:“https://www.doubao.com”},
+{name:“秘塔写作”,price:“免费”,tag:“国产”,desc:“专业写作助手，改进文案、润色内容、检查语法”,link:“https://xiezuocat.com”},
+{name:“Jasper”,price:“$39/月”,tag:“专业文案”,desc:“专业文案工具，写营销文案、产品文案、邮件文案”,link:“https://www.jasper.ai”},
+{name:“Copy.ai”,price:“免费/付费”,tag:“快速文案”,desc:“快速生成各类文案，适合电商、营销、社媒”,link:“https://www.copy.ai”},
+{name:“Writesonic”,price:“免费/付费”,tag:“全能文案”,desc:“全能文案工具，写博客、广告、社媒内容”,link:“https://writesonic.com”},
+{name:“Rytr”,price:“免费/付费”,tag:“便宜好用”,desc:“便宜好用的文案工具，适合个人创业者”,link:“https://rytr.me”},
+{name:“Grammarly”,price:“免费/付费”,tag:“语法检查”,desc:“英文文案检查、润色、改进，提升专业度”,link:“https://www.grammarly.com”},
+{name:“Hemingway”,price:“免费/付费”,tag:“写作助手”,desc:“写作助手，改进文案、检查语法”,link:“https://www.hemingwayapp.com”},
+{name:“Quillbot”,price:“免费/付费”,tag:“改写工具”,desc:“改写工具，改进文案、避免重复”,link:“https://quillbot.com”}
+],
+“图片生成”:[
+{name:“Midjourney”,price:“$10/月”,tag:“艺术最强”,desc:“生成高质量配图、产品图、营销图，月赚10000+”,link:“https://midjourney.com”},
+{name:“DALL-E 3”,price:“$15/月”,tag:“OpenAI官方”,desc:“OpenAI官方，生成产品图、广告图、社媒配图”,link:“https://openai.com/dall-e-3”},
+{name:“Stable Diffusion”,price:“免费”,tag:“开源免费”,desc:“开源免费，生成各类图片，无限制使用”,link:“https://stability.ai”},
+{name:“通义万相”,price:“免费”,tag:“阿里免费”,desc:“阿里免费，生成中文配图、产品图、营销图”,link:“https://wanxiang.aliyun.com”},
+{name:“文心一格”,price:“免费”,tag:“百度免费”,desc:“百度免费，生成艺术图、配图、创意图”,link:“https://yige.baidu.com”},
+{name:“秒画”,price:“免费”,tag:“商汤”,desc:“商汤AI，生成高质量配图、产品图、设计图”,link:“https://miaohua.sensetime.com”},
+{name:“Canva AI”,price:“免费/付费”,tag:“设计入门”,desc:“设计工具+AI，生成海报、配图、社媒图”,link:“https://canva.com”},
+{name:“稿定AI”,price:“免费/付费”,tag:“国产”,desc:“国产设计工具，生成海报、配图、营销图”,link:“https://gaoding.com”},
+{name:“Adobe Firefly”,price:“付费”,tag:“专业级”,desc:“Adobe官方AI，生成专业级配图、产品图”,link:“https://www.adobe.com/products/firefly”},
+{name:“Runway”,price:“免费/付费”,tag:“视频图片”,desc:“视频+图片AI，生成配图、视频素材、特效”,link:“https://runwayml.com”},
+{name:“Leonardo.ai”,price:“免费/付费”,tag:“高质量”,desc:“高质量图片生成，适合专业设计师”,link:“https://leonardo.ai”},
+{name:“Craiyon”,price:“免费/付费”,tag:“简单易用”,desc:“简单易用，快速生成各类配图”,link:“https://www.craiyon.com”},
+{name:“NightCafe”,price:“免费/付费”,tag:“多模型”,desc:“多个AI模型，生成风格多样的配图”,link:“https://nightcafe.studio”},
+{name:“Pixlr AI”,price:“免费/付费”,tag:“在线编辑”,desc:“在线编辑+AI，快速生成和编辑配图”,link:“https://pixlr.com”},
+{name:“Stable Cascade”,price:“免费”,tag:“开源”,desc:“开源图片生成模型，高质量输出”,link:“https://stability.ai/stable-cascade”}
+],
+“视频制作”:[
+{name:“Runway”,price:“免费/付费”,tag:“视频最强”,desc:“AI视频编辑、生成、特效，做短视频月赚20000+”,link:“https://runwayml.com”},
+{name:“Pika”,price:“免费/付费”,tag:“新秀”,desc:“AI视频生成，快速生成短视频、宣传视频”,link:“https://pika.art”},
+{name:“HeyGen”,price:“免费/付费”,tag:“数字人”,desc:“AI数字人，生成讲解视频、营销视频、教程视频”,link:“https://heygen.com”},
+{name:“腾讯智影”,price:“免费”,tag:“腾讯免费”,desc:“腾讯免费，生成短视频、宣传视频、营销视频”,link:“https://zenvideo.qq.com”},
+{name:“剪映”,price:“免费”,tag:“国产”,desc:“国产免费，剪辑短视频、添加字幕、特效”,link:“https://www.capcut.cn”},
+{name:“Synthesia”,price:“付费”,tag:“AI讲解”,desc:“AI讲解视频，快速生成教程、培训视频”,link:“https://www.synthesia.io”},
+{name:“D-ID”,price:“免费/付费”,tag:“数字人”,desc:“AI数字人，生成讲解视频、营销视频”,link:“https://www.d-id.com”},
+{name:“Opus Clip”,price:“免费”,tag:“短视频”,desc:“AI短视频生成，从长视频自动生成短视频”,link:“https://www.opus.pro”},
+{name:“Descript”,price:“免费/付费”,tag:“文字视频”,desc:“文字编辑视频，快速生成和编辑视频”,link:“https://www.descript.com”},
+{name:“Loom”,price:“免费/付费”,tag:“屏幕录制”,desc:“屏幕录制+AI，快速生成教程视频、演示视频”,link:“https://www.loom.com”},
+{name:“Animaker”,price:“付费”,tag:“动画视频”,desc:“AI动画视频，生成营销动画、解释视频”,link:“https://www.animaker.com”},
+{name:“Powtoon”,price:“免费/付费”,tag:“动画视频”,desc:“动画视频制作，生成营销视频、演示视频”,link:"h
+…(truncated)…
